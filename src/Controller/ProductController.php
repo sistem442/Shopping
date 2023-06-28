@@ -35,7 +35,7 @@ class ProductController extends AbstractController
 
             return $this->redirectToRoute('products_paginated', ['page' => 1]);
         }
-        return $this->renderForm('product/new.html.twig', [
+        return $this->render('product/new.html.twig', [
             'form' => $form,
         ]);
     }
