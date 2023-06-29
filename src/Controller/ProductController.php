@@ -90,7 +90,7 @@ class ProductController extends AbstractController
             return $this->redirectToRoute('products_paginated', ['page' => 1]);
         }
 
-        return $this->renderForm('product/new.html.twig', [
+        return $this->render('product/new.html.twig', [
             'form' => $form,
         ]);
         //TODO add here else with error messages for form
@@ -114,4 +114,12 @@ class ProductController extends AbstractController
         //return $this->render('product/show.html.twig', ['products' => $products]);
         return $this->redirectToRoute('products_paginated',['page'=>1]);
     }
+
+    #[Route('/product/test', name: 'test')]
+    public function test(): Response
+    {
+        echo'Hello';
+        return $this->render('product/new.html.twig');
+    }
+
 }
