@@ -54,7 +54,7 @@ class RegistrationController extends AbstractController
             );
             // do anything else you need here, like send an email
 
-            return $this->redirectToRoute('product_paginated');
+            return $this->redirectToRoute('products_paginated');
         }
 
         return $this->render('registration/register.html.twig', [
