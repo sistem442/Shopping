@@ -3,6 +3,12 @@
 {% block title %}Produkt Liste{% endblock %}
 
 {% block body %}
+    <script>
+        function ConfirmDelete()
+        {
+            return confirm("Are you sure you want to delete?");
+        }
+    </script>
 <style>
     table {
         border: 1px solid;
@@ -28,7 +34,7 @@
     }
 
     .field {
-        background-color: rgb(60, 61, 61);
+
     }
 </style>
 
@@ -47,7 +53,7 @@
                     <td class="field"> {{ product.description }} </td>
                     <td class="field"> {{ product.price }} </td>
                     <td class="field"><a href="{{ path('product_edit', {id: product.id}) }}">edit</a></td>
-                    <td class="field"><a href="{{ path('product_delete', {id: product.id}) }}">delete</a></td>
+                    <td class="field"><a href="{{ path('product_delete', {id: product.id}) }}" onclick="ConfirmDelete()">delete</a></td>
                 </tr>
             {% endfor %}
             {% if paginator.hasToPaginate %}
