@@ -1,0 +1,18 @@
+    <div class="col-3">
+        <div class=" pure-menu custom-display">
+            <ul class="pure-menu-list">
+                <li class="pure-menu-item">
+                    <a href="/{{ app.request.locale }}/product/add"
+                       class="pure-menu-link">{{ 'product.add'|trans }}</a>
+                </li>
+                <li class="pure-menu-item">
+                    <a href="/?locale={{ app.request.locale }}/"
+                       class="pure-menu-link">{{ 'product.all'|trans }}</a>
+                </li>
+                <li class="pure-menu-item">
+                    <a href="/logout"
+                       class="pure-menu-link">{{ 'logout'|trans }}</a>
+                </li>
+            </ul>
+        </div>
+    </div>

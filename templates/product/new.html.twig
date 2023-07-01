@@ -1,15 +1,21 @@
 {% extends 'base.html.twig' %}
 {% block title %}Add Product{% endblock %}
 {% block body %}
-    {% block main %}
-        <div style="margin: auto;width: 50% ">
-            {{ form_start(form) }}
-            {{ form_row(form.name) }}
-            {{ form_row(form.description) }}
-            {{ form_row(form.price) }}
-            {{ form_row(form.date) }}
-            {{ form_row(form.save) }}
-            {{ form_end(form) }}
+    <div class="row2">
+        {% include 'menu.html.twig' %}
+
+        <div class="col-9">
+            {% block main %}
+                <div style="margin: auto;width: 50% ">
+                    {{ form_start(form) }}
+                    {{ form_row(form.name) }}
+                    {{ form_row(form.description) }}
+                    {{ form_row(form.price) }}
+                    {{ form_row(form.date) }}
+                    {{ form_row(form.save) }}
+                    {{ form_end(form) }}
+                </div>
+            {% endblock %}
         </div>
-    {% endblock %}
+    </div>
 {% endblock %}

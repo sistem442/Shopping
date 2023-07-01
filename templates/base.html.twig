@@ -7,11 +7,6 @@
     <link rel="icon"
           href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/pure-min.css"/>
-    <link rel="stylesheet" href="../public/css/styles.css">
-    <style> .custom-display {
-            display: inline-block;
-        } </style>
     {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
     {% endblock %}
@@ -45,30 +40,7 @@
 </div>
 <div class="row2">
 
-    {% block menu %}
-        <div class="col-3">
-            <div class=" pure-menu custom-display">
-                <ul class="pure-menu-list">
-                    <li class="pure-menu-item">
-                        <a href="/{{ app.request.locale }}/product/add"
-                           class="pure-menu-link">{{ 'product.add'|trans }}</a>
-                    </li>
-                    <li class="pure-menu-item">
-                        <a href="/{{ app.request.locale }}/products/page/1"
-                           class="pure-menu-link">{{ 'product.all'|trans }}</a>
-                    </li>
-                    <li class="pure-menu-item">
-                        <a href="/logout"
-                           class="pure-menu-link">{{ 'logout'|trans }}</a>
-                    </li>
-                    <li class="pure-menu-item">
-                        <a href="/login"
-                           class="pure-menu-link">login</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    {% endblock %}
+
     <div class="col-9">
         {% block body %}{% endblock %}
     </div>
