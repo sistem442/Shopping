@@ -7,6 +7,3 @@ controllers:
 kernel:
     resource: App\Kernel
     type: attribute
-app_logout:
-    path: /logout
-    methods: POST

@@ -40,8 +40,8 @@ class ProductController extends AbstractController
         ]);
     }
 
-    #[Route('/{_locale}/', defaults: ['page' => '1','_format' => 'html'], methods: ['GET'], name: 'products_paginated')]
-    #[Route('/{_locale}/products/page/{page<[1-9]\d*>}', defaults: ['_format' => 'html'], methods: ['GET'], name: 'products_paginated')]
+    #[Route('/', defaults: ['page' => '1','_format' => 'html'], methods: ['GET'], name: 'products_paginated')]
+   // #[Route('/{_locale}/products/page/{page<[1-9]\d*>}', defaults: ['_format' => 'html'], methods: ['GET'], name: 'products_paginated')]
     public function findAll(ManagerRegistry $doctrine, int $page, TranslatorInterface $translator): Response
     {
         $products = $doctrine->getRepository(Product::class)->findAll($page);
@@ -109,9 +109,6 @@ class ProductController extends AbstractController
 
         $entityManager->remove($product);
         $entityManager->flush();
-
-        $products = $doctrine->getRepository(Product::class)->findAll();
-        //return $this->render('product/show.html.twig', ['products' => $products]);
         return $this->redirectToRoute('products_paginated',['page'=>1]);
     }
 
