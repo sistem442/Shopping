@@ -112,6 +112,12 @@ class ProductController extends AbstractController
         return $this->redirectToRoute('products_paginated',['page'=>1]);
     }
 
+    #[Route('/{_locale}/menu', name: 'menu')]
+    public function menu(): Response
+    {
+        return $this->render('menuMain.html.twig');
+    }
+
     #[Route('/product/test', name: 'test')]
     public function test(): Response
     {
