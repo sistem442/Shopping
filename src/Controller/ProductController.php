@@ -41,7 +41,7 @@ class ProductController extends AbstractController
     }
 
     //#[Route('/', defaults: ['page' => '1','_format' => 'html'], methods: ['GET'], name: 'products_paginated')]
-    #[Route('/{_locale}/products/page/{page<[1-9]\d*>}', defaults: ['_format' => 'html'], methods: ['GET'], name: 'products_paginated')]
+    #[Route('/{_locale}/products/page/{page<[1-9]\d*>}', defaults: ['_format' => 'html'], name: 'products_paginated')]
     public function findAll(ManagerRegistry $doctrine, int $page, TranslatorInterface $translator): Response
     {
         $products = $doctrine->getRepository(Product::class)->findAll($page);

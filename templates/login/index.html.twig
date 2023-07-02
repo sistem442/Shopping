@@ -1,14 +1,10 @@
-{# templates/login/index.html.twig #}
 {% extends 'base.html.twig' %}
-
-{# ... #}
-
 {% block body %}
     {% if error %}
         <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
 
-    <form action="{{ path('app_login') }}" method="post">
+    <form action='/{{ app.request.locale }}/products/page/1' method="post">
         <label for="username">{{ 'label.email'|trans }}</label>
         <input type="text" id="username" name="_username" value="{{ last_username }}">
 
