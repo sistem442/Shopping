@@ -2,15 +2,34 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file source-language="en" target-language="sr-Latn" datatype="plaintext" original="file.ext">
         <body>
-                <trans-unit id="logout">
-                                                    <source>logout</source>
-                                                    <target>Odjava</target>
-                                                </trans-unit>
-
-<trans-unit id="product.name">
-                    <source>product.name</source>
-                    <target>Ime proizvoda</target>
-                </trans-unit>
+            <trans-unit id="Agree Terms">
+                <source>Agree Terms</source>
+                <target>Prohvati uslove</target>
+            </trans-unit>
+            <trans-unit id="Password">
+                <source>Password</source>
+                <target>Lozinka</target>
+            </trans-unit>
+            <trans-unit id="Email">
+                <source>Email</source>
+                <target>Email</target>
+            </trans-unit>
+            <trans-unit id="login">
+                <source>login</source>
+                <target>Prijava</target>
+            </trans-unit>
+            <trans-unit id="logout">
+                <source>logout</source>
+                <target>Odjava</target>
+            </trans-unit>
+            <trans-unit id="label.register">
+                <source>label.register</source>
+                <target>Registracija</target>
+            </trans-unit>
+            <trans-unit id="product.name">
+                <source>product.name</source>
+                <target>Ime proizvoda</target>
+            </trans-unit>
                 <trans-unit id="product.description">
                     <source>product.description</source>
                     <target>Opis</target>

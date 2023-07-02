@@ -2,11 +2,30 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file source-language="en" target-language="sk" datatype="plaintext" original="file.ext">
         <body>
-        <trans-unit id="logout">
-                                    <source>logout</source>
-                                    <target>Odhlásiť sa</target>
-                                </trans-unit>
-
+            <trans-unit id="Agree Terms">
+                <source>Agree Terms</source>
+                <target>Súhlas s podmienkami</target>
+            </trans-unit>
+            <trans-unit id="Password">
+                <source>Password</source>
+                <target>Heslo</target>
+            </trans-unit>
+            <trans-unit id="Email">
+                <source>Email</source>
+                <target>Email</target>
+            </trans-unit>
+            <trans-unit id="login">
+                <source>login</source>
+                <target>Prihlasenie</target>
+            </trans-unit>
+            <trans-unit id="logout">
+                <source>logout</source>
+                <target>Odhlásiť sa</target>
+            </trans-unit>
+            <trans-unit id="label.register">
+                <source>label.register</source>
+                <target>Zaregistrovať sa</target>
+            </trans-unit>
 
             <trans-unit id="product.name">
                 <source>product.name</source>

@@ -20,4 +20,7 @@
 
         <button type="submit" class="btn">Register</button>
     {{ form_end(registrationForm) }}
+    <div>
+        <a href="/{{ app.request.locale }}/login">{{ 'login'|trans }}</a>
+    </div>
 {% endblock %}

@@ -1,7 +1,4 @@
-{# templates/login/index.html.twig #}
 {% extends 'base.html.twig' %}
-
-{# ... #}
 
 {% block body %}
     {% if error %}
@@ -20,4 +17,7 @@
 
         <button type="submit">login</button>
     </form>
+    <div>
+        <a href="/{{ app.request.locale }}/register">{{ 'label.register'|trans }}</a>
+    </div>
 {% endblock %}
