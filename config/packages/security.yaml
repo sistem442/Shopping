@@ -55,7 +55,7 @@ security:
         - { path: '^/admin', roles: ROLE_ADMIN }
 
         #Product
-        - {path: '^/{_locale}/products_paginated', roles: ROLE_USER}
+        - { path: '/products/page', roles: ROLE_USER }
         - { path: '/login', roles: PUBLIC_ACCESS }
 
     role_hierarchy:
