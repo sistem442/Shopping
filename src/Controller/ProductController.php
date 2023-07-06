@@ -118,11 +118,10 @@ class ProductController extends AbstractController
         return $this->render('menuMain.html.twig');
     }
 
-    #[Route('/product/test', name: 'test')]
+    #[Route('/products/test', name: 'test')]
     public function test(): Response
     {
-        echo'Hello';
-        return $this->render('product/new.html.twig');
+        return $this->render('base.html.twig');
     }
 
 }
