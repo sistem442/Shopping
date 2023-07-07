@@ -12,6 +12,15 @@ class ProductControllerTest extends WebTestCase
         $crawler = $client->request('GET', 'http://shopping2.local/products/test');
 
         $this->assertResponseIsSuccessful();
-        $this->assertSelectorTextContains('h1', 'Hello World');
+        $this->assertSelectorTextContains('small', 'de');
+    }
+
+    public function testLogon(): void
+    {
+        $client = static::createClient();
+        $crawler = $client->request('GET', 'http://shopping2.local/de/menu');
+
+        $this->assertResponseIsSuccessful();
+        $this->assertResponseIsSuccessful($message = 'menu is not working');
     }
 }
