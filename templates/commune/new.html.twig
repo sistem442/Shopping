@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+{% block title %}Add Commune{% endblock %}
+{% block body %}
+    <div class="row2">
+
+        <div class="col-9">
+            {% block main %}
+                <div style="margin: auto;width: 50% ">
+                    {{ form_start(form) }}
+                    {{ form_row(form.name) }}
+                    {{ form_row(form.save) }}
+                    {{ form_end(form) }}
+                </div>
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}

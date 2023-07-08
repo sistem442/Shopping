@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+{% block title %}Success!{% endblock %}
+{% block body %}
+    <div class="row2">
+
+        <div class="col-9">
+            You have successfully created a new commune!
+            <br/>
+            <br/>
+            <a href="/{{ app.request.locale }}/register">{{ 'register'| trans }}</a>
+        </div>
+    </div>
+{% endblock %}
