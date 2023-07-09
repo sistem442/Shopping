@@ -2,10 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\AdminCommuneRegistration;
 use App\Entity\Commune;
-use App\Entity\Product;
+use App\Entity\User;
+
+
+use App\Form\AdminCommuneRegistrationType;
 use App\Form\CommuneType;
-use App\Form\Type\ProductType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -18,17 +21,23 @@ class CommuneController extends AbstractController
     #[Route('/{_locale}/commune/new', name: 'new_commune')]
     public function new(Request $request, EventDispatcherInterface $eventDispatcher, EntityManagerInterface $entityManager): Response
     {
-        // creates a task object and initializes some data for this example
+        $commune_admin = new AdminCommuneRegistration();
         $commune = new Commune();
-        $commune->setName('Name');
+        $user = new User();
 
-        $form = $this->createForm(CommuneType::class, $commune, ['action' => $request->getRequestUri()]);
+        $form = $this->createForm(AdminCommuneRegistrationType::class, $commune_admin, ['action' => $request->getRequestUri()]);
         $form->handleRequest($request);
         //print_r($form);
         if ($form->isSubmitted() /*&& $form->isValid()*/) {
+            $commune->setName($commune_admin->name);
+            $user->setEmail($commune_admin->email);
+            $user->setPassword($commune_admin->plainPassword);
+            $user->setRoles(['ADMIN']);
             $entityManager->persist($commune);
             $entityManager->flush();
-
+            $user->setCommune($commune);
+            $entityManager->persist($user);
+            $entityManager->flush();
             return $this->redirectToRoute('new_commune_is_created');
         }
         return $this->render('commune/new.html.twig', [
