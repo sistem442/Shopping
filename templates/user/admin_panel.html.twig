@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin Panel{% endblock %}
+
+{% block body %}
+    <script>
+        function ConfirmDelete()
+        {
+            return confirm("Are you sure you want to delete?");
+        }
+    </script>
+<style>
+    table {
+        border: 1px solid;
+        padding: 10px;
+    }
+
+    th, td {
+        border: 1px solid black;
+        width: 100px;
+        overflow: hidden;
+        padding: 10px;
+    }
+
+    .example-wrapper {
+        margin: 1em auto;
+        max-width: 800px;
+        width: 95%;
+        font: 18px/1.5 sans-serif;
+    }
+
+    .example-wrapper code {
+        padding: 2px 6px;
+    }
+
+    .field {
+
+    }
+</style>
+<div class="row2">
+    {% include 'menu.html.twig' %}
+
+    <div class="col-9">
+    <div class="example-wrapper">
+        <table>
+            <tr>
+                <td> {{ 'admin.user_email'|trans }} </td>
+                <td> {{ 'admin.user_role'|trans }} </td>
+                <td></td>
+            </tr>
+            {% for user in users %}
+                <tr class="product">
+                    <td class="field"> {{ user.email }} </td>
+                    <td class="field">
+                        {% for role in user.roles %}
+                            {{ role }}
+                        {% endfor %}
+                    </td>
+                    <td class="field"><a href="{{ path('user_delete', {email: user.email}) }}" onclick="ConfirmDelete()">delete</a></td>
+                </tr>
+            {% endfor %}
+
+    </table>
+    </div>
+    </div>
+</div>
+{% endblock %}

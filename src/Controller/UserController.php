@@ -6,8 +6,10 @@ use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Security\EmailVerifier;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mime\Address;
@@ -16,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
-class RegistrationController extends AbstractController
+class UserController extends AbstractController
 {
     private EmailVerifier $emailVerifier;
 
@@ -24,7 +26,13 @@ class RegistrationController extends AbstractController
     {
         $this->emailVerifier = $emailVerifier;
     }
-
+    #[Route('/{_locale}/admin_panel', name: 'admin_panel')]
+    public function admin_panel(Request $request,ManagerRegistry $doctrine,  EntityManagerInterface $entityManager): Response
+    {
+        $user = $this->getUser();
+        $users = $doctrine->getRepository(User::class)->findBy(['commune'=>$user->getCommune()]);
+        return $this->render('/user/admin_panel.html.twig',['users'=>$users]);
+    }
     #[Route('/{_locale}/register', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
@@ -58,7 +66,7 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('menu');
         }
 
-        return $this->render('registration/register.html.twig', [
+        return $this->render('user/register.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
     }
@@ -81,5 +89,21 @@ class RegistrationController extends AbstractController
         $this->addFlash('success', 'Your email address has been verified.');
 
         return $this->redirectToRoute('app_register');
+    }
+
+    #[Route('/{_locale}/admin/delete/{email}', name: 'user_delete')]
+    public function deleteUser( EntityManagerInterface $entityManager, string $email): Response
+    {
+        $user = $entityManager->getRepository(User::class)->findOneBy(['email' => $email]);
+
+        if (!$user) {
+            throw $this->createNotFoundException(
+                'No user found for id ' . $email
+            );
+        }
+
+        $entityManager->remove($user);
+        $entityManager->flush();
+        return $this->redirectToRoute('admin_panel');
     }
 }
