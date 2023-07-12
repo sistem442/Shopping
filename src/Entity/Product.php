@@ -5,8 +5,10 @@ namespace App\Entity;
 use App\Repository\ProductRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
+#[ORM\Table(name: 'product')]
 class Product
 {
     protected $task;
@@ -25,9 +27,18 @@ class Product
     #[ORM\Column(nullable: true)]
     private ?int $price = null;
 
-    #[ORM\Column(type: 'datetime')]
-    private \DateTime $date;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private \DateTime $purchasedAt;
 
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $buyer = null;
+
+    public function __construct()
+    {
+        $this->purchasedAt = new \DateTime();
+        $this->users = new ArrayCollection();
+    }
     public function getId(): ?int
     {
         return $this->id;
@@ -69,14 +80,14 @@ class Product
         return $this;
     }
 
-    public function getDate(): ?\DateTime
+    public function getPurchasedAt(): \DateTime
     {
-        return $this->date;
+        return $this->purchasedAt;
     }
 
-    public function setDate(?\DateTime $date): void
+    public function setPurchasedAt(\DateTime $purchasedAt): void
     {
-        $this->date = $date;
+        $this->purchasedAt = $purchasedAt;
     }
 
 }

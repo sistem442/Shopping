@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Admin Panel{% endblock %}
+{% block title %}{{ 'admin.admin_panel'|trans }}{% endblock %}
 
 {% block body %}
     <script>
@@ -56,7 +56,9 @@
                             {{ role }}
                         {% endfor %}
                     </td>
-                    <td class="field"><a href="{{ path('user_delete', {email: user.email}) }}" onclick="ConfirmDelete()">delete</a></td>
+                    <td class="field">
+                        <a href="{{ path('user_delete', {email: user.email}) }}" onclick="ConfirmDelete()">delete</a>
+                    </td>
                 </tr>
             {% endfor %}
 

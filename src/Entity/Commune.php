@@ -18,12 +18,12 @@ class Commune
     #[ORM\Column(length: 50)]
     private ?string $name = null;
 
-    #[ORM\OneToMany(mappedBy: 'commune', targetEntity: User::class)]
-    private Collection $roommates;
+    #[ORM\OneToMany(mappedBy: 'commune', targetEntity: User::class, cascade: ['persist'], orphanRemoval: true)]
+    private Collection $users;
 
     public function __construct()
     {
-        $this->roommates = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -51,22 +51,30 @@ class Commune
         return $this->roommates;
     }
 
-    public function addRoommate(User $roommate): static
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUser(): Collection
     {
-        if (!$this->roommates->contains($roommate)) {
-            $this->roommates->add($roommate);
-            $roommate->setCommune($this);
+        return $this->user;
+    }
+
+    public function addUser(User $user): static
+    {
+        if (!$this->user->contains($user)) {
+            $this->user->add($user);
+            $user->setCommuneId($this);
         }
 
         return $this;
     }
 
-    public function removeRoommate(User $roommate): static
+    public function removeUser(User $user): static
     {
-        if ($this->roommates->removeElement($roommate)) {
+        if ($this->user->removeElement($user)) {
             // set the owning side to null (unless already changed)
-            if ($roommate->getCommune() === $this) {
-                $roommate->setCommune(null);
+            if ($user->getCommuneId() === $this) {
+                $user->setCommuneId(null);
             }
         }
 
