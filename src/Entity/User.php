@@ -134,5 +134,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCommune(Commune $commune): static
     {
         $this->commune = $commune;
+        return $this;
     }
 }

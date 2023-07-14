@@ -52,7 +52,7 @@ class CommuneController extends AbstractController
 
         $form = $this->createForm(CommuneType::class, $commune);
 
-        return $this->render('registration/register_choose.html.twig', [
+        return $this->render('user/register_choose.html.twig', [
             'form' => $form,
         ]);
     }

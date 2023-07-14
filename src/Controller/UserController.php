@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Commune;
 use App\Entity\User;
+use App\Entity\UserCommuneRegistration;
 use App\Form\RegistrationFormType;
+use App\Form\UserCommuneRegistrationType;
 use App\Security\EmailVerifier;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
@@ -37,7 +40,7 @@ class UserController extends AbstractController
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
         $user = new User();
-        $form = $this->createForm(RegistrationFormType::class, $user);
+        $form = $this->createForm(UserCommuneRegistrationType::class,new UserCommuneRegistration());
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -49,18 +52,23 @@ class UserController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+            $user->setEmail($form->get('email')->getData());
+            //get commune_id
+            $commune_form = $form->get('communes');
+            $commune = $commune_form->getData('modelData');
+            $user->setCommune($commune);
 
             $entityManager->persist($user);
             $entityManager->flush();
 
             // generate a signed url and email it to the user
-            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+           /* $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
                 (new TemplatedEmail())
                     ->from(new Address('sistem442@gmail.com', 'Boris'))
                     ->to($user->getEmail())
                     ->subject('Please Confirm your Email')
                     ->htmlTemplate('registration/confirmation_email.html.twig')
-            );
+            );*/
             // do anything else you need here, like send an email
 
             return $this->redirectToRoute('menu');

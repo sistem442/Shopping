@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3bfc3fd3e11bb43e200d333ff0249d36",
+    "content-hash": "33815e891e823f5f1c72409d957d31d2",
     "packages": [
         {
             "name": "dama/doctrine-test-bundle",
