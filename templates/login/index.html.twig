@@ -17,7 +17,10 @@
 
         <button type="submit">login</button>
     </form>
-    <div>
-        <a href="/{{ app.request.locale }}/register_choose">{{ 'label.register'|trans }}</a>
+    <div style="padding: 20px">
+        <a href="/{{ app.request.locale }}/commune/new">{{ 'Create new commune'|trans }}</a>
+    </div>
+    <div style="padding: 20px">
+        <a href="/{{ app.request.locale }}/register">{{ 'Join commune'|trans }}</a>
     </div>
 {% endblock %}
