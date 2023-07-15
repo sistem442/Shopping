@@ -10,6 +10,7 @@ use App\Entity\User;
 use App\Form\AdminCommuneRegistrationType;
 use App\Form\CommuneType;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -50,22 +51,27 @@ class CommuneController extends AbstractController
             'form' => $form,
         ]);
     }
-    #[Route('/{_locale}/register_choose', name: 'register_choose')]
-    public function register_choose(Request $request): Response
-    {
-        // creates a task object and initializes some data for this example
-        $commune = new Commune();
 
-        $form = $this->createForm(CommuneType::class, $commune);
-
-        return $this->render('user/register_choose.html.twig', [
-            'form' => $form,
-        ]);
-    }
     #[Route('/{_locale}/new_commune_is_created', name: 'new_commune_is_created')]
     public function new_commune_is_created(Request $request): Response
     {
         return $this->render('commune/new_commune_is_created.html.twig',);
+    }
+
+    #[Route('/{_locale}/admin_panel', name: 'admin_panel')]
+    public function admin_panel(ManagerRegistry $doctrine): Response
+    {
+        if ($this->security->isGranted('ROLE_ADMIN')) {
+            $user = $this->getUser();
+            $commune = $user->getCommune();
+            $roommates = $doctrine->getRepository(User::class)->findBy(
+                ['commune_id' => $commune->getId()]
+            );
+            return $this->render('commune/admin_panel.html.twig',$roommates);
+        }
+        else {
+            return $this->render('menu.html.twig',);
+        }
     }
 
 }
