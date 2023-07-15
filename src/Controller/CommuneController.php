@@ -13,13 +13,14 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
 class CommuneController extends AbstractController
 {
     #[Route('/{_locale}/commune/new', name: 'new_commune')]
-    public function new(Request $request, EventDispatcherInterface $eventDispatcher, EntityManagerInterface $entityManager): Response
+    public function new(Request $request,UserPasswordHasherInterface $userPasswordHasher, EventDispatcherInterface $eventDispatcher, EntityManagerInterface $entityManager): Response
     {
         $commune_admin = new AdminCommuneRegistration();
         $commune = new Commune();
@@ -31,7 +32,12 @@ class CommuneController extends AbstractController
         if ($form->isSubmitted() /*&& $form->isValid()*/) {
             $commune->setName($commune_admin->name);
             $user->setEmail($commune_admin->email);
-            $user->setPassword($commune_admin->plainPassword);
+            $user->setPassword(
+                $userPasswordHasher->hashPassword(
+                    $user,
+                    $form->get('plainPassword')->getData()
+                )
+            );
             $user->setRoles(['ADMIN']);
             $entityManager->persist($commune);
             $entityManager->flush();
