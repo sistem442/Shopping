@@ -5,7 +5,6 @@ namespace App\Tests\Controller;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\HttpFoundation\Response;
 
 class ProductControllerTest extends WebTestCase
 {
@@ -17,7 +16,7 @@ class ProductControllerTest extends WebTestCase
         $userRepository = static::getContainer()->get(UserRepository::class);
 
         /** @var User $user */
-        $testUser = $userRepository->findOneByEmail('boris.klinko@gmail.com');
+        $testUser = $userRepository->findOneByEmail('jane_admin@boris555.de');
 
         // simulate $testUser being logged in
         $client->loginUser($testUser);
@@ -32,8 +31,7 @@ class ProductControllerTest extends WebTestCase
         $client = static::createClient();
         $client->request('GET', 'http://shopping2.local/de/menu');
 
-        $this->assertResponseIsSuccessful();
-
-        $this->assertSelectorTextContains('body', 'Redirecting to <a href="http://shopping2.local/de/login">http://shopping2.local/de/login</a>.');
+        $this->assertResponseRedirects('http://shopping2.local/de/login', 302,
+            'Redirect from menu to login for unauthorized users is working');
     }
 }
