@@ -498,6 +498,10 @@
                 <source>add_product</source>
                 <target>Add Product</target>
             </trans-unit>
+            <trans-unit id="product.user">
+                <source>product.user</source>
+                <target>Roommate</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

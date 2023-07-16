@@ -45,10 +45,20 @@ class ProductController extends AbstractController
         ]);
     }
 
-    #[Route('/{_locale}/products/page/{page<[1-9]\d*>}', defaults: ['_format' => 'html'], name: 'products_paginated')]
+    //#[Route('/{_locale}/products/page/{page<[1-9]\d*>}', defaults: ['_format' => 'html'], name: 'products_paginated')]
     public function findAll(ManagerRegistry $doctrine, int $page): Response
     {
         $products = $doctrine->getRepository(Product::class)->findAll($page);
+        return $this->render('product/products.html.twig', [
+            'paginator' => $products
+        ]);
+    }
+
+    #[Route('/{_locale}/products/page/{page<[1-9]\d*>}', defaults: ['_format' => 'html'], name: 'products_paginated')]
+    public function findByExampleField(#[CurrentUser] User $user,ManagerRegistry $doctrine, int $page): Response
+    {
+        $commune = $user->getCommune();
+        $products = $doctrine->getRepository(Product::class)->findByExampleField($commune,$page);
         return $this->render('product/products.html.twig', [
             'paginator' => $products
         ]);

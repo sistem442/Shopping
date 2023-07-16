@@ -6,6 +6,7 @@ use App\Entity\Product;
 use App\Pagination\Paginator;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Entity\Commune;
 
 /**
  * @extends ServiceEntityRepository<Product>
@@ -51,6 +52,31 @@ class ProductRepository extends ServiceEntityRepository
 
         return (new Paginator($qb))->paginate($page);
     }
+
+    public function findByExampleField2($user,int $page = 1): Paginator
+    {
+        $commune = $user->getCommune();
+        $users = $commune->getUsers();
+        $qb = $this->createQueryBuilder('p')
+            ->where('p.id > 0')
+           // ->setParameter('val', $users)
+        ;
+        return (new Paginator($qb))->paginate($page);
+    }
+
+    public function findByExampleField(Commune $commune,int $page = 1): Paginator
+    {
+        $qb = $this->createQueryBuilder('p')
+            ->addSelect('u', 'c')
+            ->innerJoin('p.user', 'u')
+            ->innerJoin('u.commune', 'c')
+            ->where('c.id ='.$commune->getId())
+            ->orderBy('p.user', 'DESC')
+        ;
+
+        return (new Paginator($qb))->paginate($page);
+    }
+
 
 //    /**
 //     * @return Product[] Returns an array of Product objects

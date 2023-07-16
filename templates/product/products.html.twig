@@ -47,6 +47,7 @@
                 <td> {{ 'product.name'|trans }} </td>
                 <td> {{ 'product.description'|trans }} </td>
                 <td> {{ 'product.price'|trans }} </td>
+                <td> {{ 'product.user'|trans }} </td>
                 <td></td>
                 <td></td>
             </tr>
@@ -55,6 +56,7 @@
                     <td class="field"> {{ product.name }} </td>
                     <td class="field"> {{ product.description }} </td>
                     <td class="field"> {{ product.price }} </td>
+                    <td class="field"> {{ product.user.name }} </td>
                     <td class="field"><a href="{{ path('product_edit', {id: product.id}) }}">edit</a></td>
                     <td class="field"><a href="{{ path('product_delete', {id: product.id}) }}" onclick="ConfirmDelete()">delete</a></td>
                 </tr>
