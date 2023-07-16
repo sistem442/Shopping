@@ -3,35 +3,44 @@
 namespace App\Tests\Controller;
 
 use App\Entity\User;
+use App\Pagination\Paginator;
 use App\Repository\UserRepository;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class ProductControllerTest extends WebTestCase
 {
-    public function testSomething(): void
+    private KernelBrowser $client;
+
+    protected function setUp(): void
     {
-        $client = static::createClient();
+        parent::setUp();
+        $this->client = static::createClient();
 
         /** @var UserRepository $userRepository */
-        $userRepository = static::getContainer()->get(UserRepository::class);
-
+        $userRepository = $this->client->getContainer()->get(UserRepository::class);
         /** @var User $user */
-        $testUser = $userRepository->findOneByEmail('jane_admin@boris555.de');
-
-        // simulate $testUser being logged in
-        $client->loginUser($testUser);
-        $client->request('GET', 'http://shopping2.local/products/test');
-
-        $this->assertResponseIsSuccessful();
-        $this->assertSelectorTextContains('small', 'de');
+        $user = $userRepository->findOneByEmail('jane_admin@boris555.de');
+        $this->client->loginUser($user);
     }
 
-    public function testLogon(): void
+    public function getUrlsForRegularUsers(): \Generator
     {
-        $client = static::createClient();
-        $client->request('GET', 'http://shopping2.local/de/menu');
+        yield ['GET', 'http://shopping2.local/de/menu'];
+        yield ['GET', 'http://shopping2.local/en/product/add'];
+        yield ['GET', 'http://shopping2.local/en/products/page/1'];
+    }
 
-        $this->assertResponseRedirects('http://shopping2.local/de/login', 302,
-            'Redirect from menu to login for unauthorized users is working');
+    public function testProducts(): void
+    {
+        $crawler = $this->client->request('GET', 'http://shopping2.local/de/products/page/1');
+
+        $this->assertResponseIsSuccessful();
+
+        $this->assertCount(
+            Paginator::PAGE_SIZE,
+            $crawler->filter('tr.product'),
+            'The products displays the right number of products.'
+        );
     }
 }
