@@ -54,6 +54,8 @@ security:
         # matches /admin/* except for anything matching the above rule
         - { path: '^/admin', roles: ROLE_ADMIN }
 
+        #Admin
+        -  { path: '/admin_panel', roles: ROLE_ADMIN }
         #Product
         - { path: '/products/page', roles: ROLE_USER }
         - { path: '/menu', roles: ROLE_USER }

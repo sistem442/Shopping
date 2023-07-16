@@ -5,6 +5,8 @@ namespace App\Tests\Controller;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Functional test for the controllers defined inside the BlogController used
@@ -23,20 +25,53 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
  */
 class LoginControllerTest extends WebTestCase
 {
+    private KernelBrowser $client;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->client = static::createClient();
+
+        /** @var UserRepository $userRepository */
+        $userRepository = $this->client->getContainer()->get(UserRepository::class);
+        /** @var User $user */
+        $user = $userRepository->findOneByEmail('jane_admin@boris555.de');
+        $this->client->loginUser($user);
+    }
     /** @test */
     public function testVisitingWhileLoggedIn(): void
     {
-        $client = static::createClient();
 
         /** @var UserRepository $userRepository */
-        $userRepository = $client->getContainer()->get(UserRepository::class);
+        $userRepository = $this->client->getContainer()->get(UserRepository::class);
         /** @var User $user */
         $user = $userRepository->findOneByEmail('jane_admin@boris555.de');
-        $client->loginUser($user);
-        $client->request('GET', 'http://shopping2.local/de/menu');
+        $this->client->loginUser($user);
+        $this->client->request('GET', 'http://shopping2.local/de/menu');
         $this->assertResponseIsSuccessful();
         $this->assertSelectorTextContains("small", 'de','login is working');
     }
+    /**
+     * @dataProvider getUrlsForRegularUsers
+     */
+    public function testAccessDeniedForRegularUsers(string $httpMethod, string $url): void
+    {
+        $this->client->getCookieJar()->clear();
 
+        /** @var UserRepository $userRepository */
+        $userRepository = $this->client->getContainer()->get(UserRepository::class);
+        /** @var User $user */
+        $user = $userRepository->findOneByEmail('john_user@boris555.de');
+        $this->client->loginUser($user);
+
+        $this->client->request($httpMethod, $url);
+
+        $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
+    }
+
+    public function getUrlsForRegularUsers(): \Generator
+    {
+        yield ['GET', 'http://shopping2.local/en/admin_panel/'];
+    }
 
 }
