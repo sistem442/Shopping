@@ -19,12 +19,12 @@ class ProductType extends AbstractType
             ->add('name', TextType::class)
             ->add('description', TextType::class)
             ->add('price', IntegerType::class)
-            ->add('date', DateType::class, array(
+            ->add('purchased_at', DateType::class, array(
                 'label' => false,
                 'attr' => array(
                     'class' => 'min date',
                     'required' => false,
-                    'id' => 'date')))
+                    'id' => 'purchased_at')))
             ->add('save', SubmitType::class)
         ;
     }

@@ -32,7 +32,7 @@ class Product
 
     #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(nullable: false)]
-    private ?User $buyer = null;
+    private ?User $user = null;
 
     public function __construct()
     {
@@ -88,6 +88,17 @@ class Product
     public function setPurchasedAt(\DateTime $purchasedAt): void
     {
         $this->purchasedAt = $purchasedAt;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(User $user): static
+    {
+        $this->user = $user;
+        return $this;
     }
 
 }

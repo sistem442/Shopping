@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Product;
+use App\Entity\User;
 use App\Form\Type\ProductType;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -12,19 +13,18 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ProductController extends AbstractController
 {
     #[Route('/{_locale}/product/add', name: 'create_product')]
     public function new(Request $request, EventDispatcherInterface $eventDispatcher, EntityManagerInterface $entityManager): Response
     {
-        // creates a task object and initializes some data for this example
         $product = new Product();
         $product->setName('Name');
         $product->setDescription('Description');
         $product->setPrice('100');
-        $product->setDate(new DateTime('today'));
+        $product->setPurchasedAt(new DateTime('today'));
+        $product->setUser($this->getUser());
 
         $form = $this->createForm(ProductType::class, $product, ['action' => $request->getRequestUri()]);
         $form->handleRequest($request);
@@ -40,7 +40,6 @@ class ProductController extends AbstractController
         ]);
     }
 
-    //#[Route('/', defaults: ['page' => '1','_format' => 'html'], methods: ['GET'], name: 'products_paginated')]
     #[Route('/{_locale}/products/page/{page<[1-9]\d*>}', defaults: ['_format' => 'html'], name: 'products_paginated')]
     public function findAll(ManagerRegistry $doctrine, int $page): Response
     {
