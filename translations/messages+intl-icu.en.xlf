@@ -494,6 +494,10 @@
                 <source>produkt_liste</source>
                 <target>List of Products</target>
             </trans-unit>
+            <trans-unit id="add_product">
+                <source>add_product</source>
+                <target>Add Product</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

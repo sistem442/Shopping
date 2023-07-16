@@ -13,18 +13,23 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\CurrentUser;
 
 class ProductController extends AbstractController
 {
     #[Route('/{_locale}/product/add', name: 'create_product')]
-    public function new(Request $request, EventDispatcherInterface $eventDispatcher, EntityManagerInterface $entityManager): Response
-    {
+    public function new(
+        #[CurrentUser] User $user,
+        Request $request,
+        EntityManagerInterface $entityManager
+    ): Response {
+
         $product = new Product();
         $product->setName('Name');
         $product->setDescription('Description');
         $product->setPrice('100');
         $product->setPurchasedAt(new DateTime('today'));
-        $product->setUser($this->getUser());
+        $product->setUser($user);
 
         $form = $this->createForm(ProductType::class, $product, ['action' => $request->getRequestUri()]);
         $form->handleRequest($request);
