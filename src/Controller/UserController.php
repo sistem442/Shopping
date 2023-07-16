@@ -52,6 +52,7 @@ class UserController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+            $user->setName($form->get('name')->getData());
             $user->setEmail($form->get('email')->getData());
             //get commune_id
             $commune_form = $form->get('communes');

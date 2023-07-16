@@ -25,6 +25,7 @@ class UserCommuneRegistrationType extends AbstractType
                 'choice_label' => 'name',
                 'choice_value' => 'id',
             ])
+            ->add('name')
             ->add('email')
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,

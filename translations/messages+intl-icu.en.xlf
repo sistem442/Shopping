@@ -490,6 +490,10 @@
                 <source>paginator.current</source>
                 <target>(current)</target>
             </trans-unit>
+            <trans-unit id="produkt_liste">
+                <source>produkt_liste</source>
+                <target>List of Products</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
