@@ -502,6 +502,10 @@
                 <source>product.user</source>
                 <target>Roommate</target>
             </trans-unit>
+            <trans-unit id="add_commune">
+                <source>add_commune</source>
+                <target>Add Commune</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

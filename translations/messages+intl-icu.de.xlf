@@ -2,6 +2,10 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file source-language="en" target-language="de" datatype="plaintext" original="file.ext">
         <body>
+            <trans-unit id="add_commune">
+                <source>add_commune</source>
+                <target>Eine WG hinzufügen</target>
+            </trans-unit>
             <trans-unit id="product.user">
                 <source>product.user</source>
                 <target>Mitbewohner</target>

@@ -2,20 +2,14 @@
 
 namespace App\Controller;
 
-use App\Entity\Commune;
 use App\Entity\User;
 use App\Entity\UserCommuneRegistration;
-use App\Form\RegistrationFormType;
 use App\Form\UserCommuneRegistrationType;
 use App\Security\EmailVerifier;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mime\Address;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -29,13 +23,7 @@ class UserController extends AbstractController
     {
         $this->emailVerifier = $emailVerifier;
     }
-    #[Route('/{_locale}/admin_panel', name: 'admin_panel')]
-    public function admin_panel(Request $request,ManagerRegistry $doctrine,  EntityManagerInterface $entityManager): Response
-    {
-        $user = $this->getUser();
-        $users = $doctrine->getRepository(User::class)->findBy(['commune'=>$user->getCommune()]);
-        return $this->render('/user/admin_panel.html.twig',['users'=>$users]);
-    }
+
     #[Route('/{_locale}/register', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {

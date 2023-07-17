@@ -43,16 +43,21 @@
                     <tr>
                         <td> {{ 'name'|trans }} </td>
                         <td> {{ 'email'|trans }} </td>
+                        <td> {{ 'role'|trans }} </td>
                         <td></td>
                         <td></td>
                     </tr>
-                    {% for roommate in roomamates %}
+                    {% for roommate in roommates %}
                         <tr class="product">
                             <td class="field"> {{ roommate.name }} </td>
                             <td class="field"> {{ roommate.email }} </td>
-                            <td class="field"> {{ product.price }} </td>
-                            <td class="field"><a href="{{ path('product_edit', {id: product.id}) }}">edit</a></td>
-                            <td class="field"><a href="{{ path('product_delete', {id: product.id}) }}" onclick="ConfirmDelete()">delete</a></td>
+                            <td class="field">
+                                {% for role in roommate.roles %}
+                                    {{  role }}<br/>
+                                {% endfor %}
+                            </td>
+                            <td class="field"><a href="{{ path('toggle_admin', {id: roommate.id}) }}">toggle admin</a></td>
+                            <td class="field"><a href="{{ path('user_delete', {email: roommate.email}) }}" onclick="ConfirmDelete()">delete</a></td>
                         </tr>
                     {% endfor %}
                 </table>
