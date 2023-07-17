@@ -8,11 +8,11 @@
             {% block main %}
                 <div style="margin: auto;width: 50% ">
                     {{ form_start(form) }}
-                    {{ form_row(form.name) }}
-                    {{ form_row(form.description) }}
-                    {{ form_row(form.price) }}
-                    {{ form_row(form.purchased_at) }}
-                    {{ form_row(form.save) }}
+                    <div style="padding: 20px">{{ form_row(form.name) }}</div>
+                    <div style="padding: 20px">{{ form_row(form.description) }}</div>
+                    <div style="padding: 20px">{{ form_row(form.price) }}</div>
+                    <div style="padding: 20px">{{ form_row(form.purchased_at) }}</div>
+                    <div style="padding: 20px">{{ form_row(form.save) }}</div>
                     {{ form_end(form) }}
                 </div>
             {% endblock %}

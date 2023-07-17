@@ -9,7 +9,7 @@ class UserCommuneRegistration
     public $plainPassword;
     public $agreeTerms;
     public $email;
-    public $name;
+    public $user_name;
 
 
 }

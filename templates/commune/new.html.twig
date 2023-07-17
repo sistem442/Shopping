@@ -7,8 +7,12 @@
             {% block main %}
                 <div style="margin: auto;width: 50% ">
                     {{ form_start(form) }}
-                    {{ form_row(form.name) }}
-                    {{ form_row(form.save) }}
+                    <div style="padding: 20px">{{ form_row(form.commune_name) }}</div>
+                    <div style="padding: 20px">{{ form_row(form.user_name) }}</div>
+                    <div style="padding: 20px">{{ form_row(form.email) }}</div>
+                    <div style="padding: 20px">{{ form_row(form.agreeTerms) }}</div>
+                    <div style="padding: 20px">{{ form_row(form.plainPassword) }}</div>
+                    <div style="padding: 20px">{{ form_row(form.save) }}</div>
                     {{ form_end(form) }}
                 </div>
             {% endblock %}

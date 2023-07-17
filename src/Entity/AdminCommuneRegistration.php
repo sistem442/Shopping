@@ -5,8 +5,8 @@ namespace App\Entity;
 
 class AdminCommuneRegistration
 {
-
-    public $name;
+    public $user_name;
+    public $commune_name;
     public $plainPassword;
     public $agreeTerms;
     public $email;

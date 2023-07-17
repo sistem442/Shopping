@@ -31,7 +31,8 @@ class CommuneController extends AbstractController
         $form->handleRequest($request);
         //print_r($form);
         if ($form->isSubmitted() /*&& $form->isValid()*/) {
-            $commune->setName($commune_admin->name);
+            $commune->setName($commune_admin->commune_name);
+            $user->setName($commune_admin->user_name);
             $user->setEmail($commune_admin->email);
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
@@ -40,9 +41,8 @@ class CommuneController extends AbstractController
                 )
             );
             $user->setRoles(['ADMIN']);
-            $entityManager->persist($commune);
-            $entityManager->flush();
             $user->setCommune($commune);
+            $entityManager->persist($commune);
             $entityManager->persist($user);
             $entityManager->flush();
             return $this->redirectToRoute('new_commune_is_created');

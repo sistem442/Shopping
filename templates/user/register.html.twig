@@ -12,15 +12,14 @@
     {{ form_errors(registrationForm) }}
 
     {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
-
-        <button type="submit" class="btn">{{ 'register'|trans }}</button>
+    <div style="padding: 20px">{{ form_row(registrationForm.email) }}</div>
+    <div style="padding: 20px">{{ form_row(registrationForm.plainPassword)}}</div>
+    <div style="padding: 20px">{{ form_row(registrationForm.user_name) }}</div>
+    <div style="padding: 20px">{{ form_row(registrationForm.communes) }}</div>
+    <div style="padding: 20px">{{ form_row(registrationForm.agreeTerms) }}</div>
+    <button type="submit" class="btn">{{ 'register'|trans }}</button>
     {{ form_end(registrationForm) }}
-    <div>
-        <a href="/{{ app.request.locale }}/login">{{ 'login'|trans }}</a>
+    <div style="padding: 40px">
+        <a  href="/{{ app.request.locale }}/login">{{ 'login'|trans }}</a>
     </div>
 {% endblock %}

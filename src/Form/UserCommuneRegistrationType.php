@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\UserCommuneRegistration;
 use App\Entity\Commune;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -24,8 +25,9 @@ class UserCommuneRegistrationType extends AbstractType
                 'class' => Commune::class,
                 'choice_label' => 'name',
                 'choice_value' => 'id',
+                'label'=>'Choose commune'
             ])
-            ->add('name')
+            ->add('user_name',TextType::class,['label'=>'User name'])
             ->add('email')
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
