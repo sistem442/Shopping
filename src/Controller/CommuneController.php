@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\AdminCommuneRegistration;
 use App\Entity\Commune;
 use App\Entity\User;
-use App\Entity\UserRepository;
 use App\Form\AdminCommuneRegistrationType;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
@@ -75,27 +74,23 @@ class CommuneController extends AbstractController
         }
     }
 
-    #[Route('/{_locale}/commune/toggle_admin', name: 'toggle_admin')]
-    public function toggle_admin(Request $request,ManagerRegistry $doctrine, EntityManagerInterface $entityManager):Response
+    #[Route('/{_locale}/commune/toggle_admin/{id}', name: 'toggle_admin')]
+    public function toggle_admin(int $id,Request $request,ManagerRegistry $doctrine, EntityManagerInterface $entityManager):Response
     {
-        $user_id = $request->get('id');
-        $user = $doctrine->getRepository(User::class)->find($user_id);
+        $user = $doctrine->getRepository(User::class)->find($id);
         $roles = $user->getRoles();
-        //dump($user);
         if($roles[0] == "ROLE_ADMIN") {
             $roles[0] = "ROLE_USER";
-            echo 1;
+            $role = 'User';
         }
         else{
             $roles[0] = "ROLE_ADMIN";
-            echo 2;
+            $role = 'Admin';
         }
         $user->setRoles($roles);
         $entityManager->persist($user);
         $entityManager->flush();
-
-        //dump($user);
-        //die();
+        return $this->json($role);
 
     }
 

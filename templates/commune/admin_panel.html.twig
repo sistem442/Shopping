@@ -51,12 +51,17 @@
                         <tr class="product">
                             <td class="field"> {{ roommate.name }} </td>
                             <td class="field"> {{ roommate.email }} </td>
-                            <td class="field">
+                            <td class="field" id="{{ roommate.id }}">
                                 {% for role in roommate.roles %}
-                                    {{  role }}<br/>
+                                    {%if(role == 'ROLE_ADMIN')%}
+                                        Admin
+                                    {% elseif(role == "ROLE_USER") %}
+                                        User
+                                    {%endif%}
+                                    <br/>
                                 {% endfor %}
                             </td>
-                            <td class="field"><a href="{{ path('toggle_admin', {id: roommate.id}) }}">toggle admin</a></td>
+                            <td class="field"><button type="button" onclick="toggleAdmin({{roommate.id }})">toggle admin</button></td>
                             <td class="field"><a href="{{ path('user_delete', {email: roommate.email}) }}" onclick="ConfirmDelete()">delete</a></td>
                         </tr>
                     {% endfor %}
@@ -64,4 +69,20 @@
             {% endblock %}
         </div>
     </div>
+
+<script>
+    function toggleAdmin(id) {
+        const xhttp = new XMLHttpRequest();
+        var response;
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                response = this.responseText;
+                document.getElementById(id).innerHTML =
+                    response.substring(1, response.length-1);
+            }
+        };
+        xhttp.open("GET", "http://shopping2.local/en/commune/toggle_admin/"+id);
+        xhttp.send();
+    }
+</script>
 {% endblock %}
