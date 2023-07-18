@@ -71,7 +71,7 @@ class LoginControllerTest extends WebTestCase
 
     public function getUrlsForRegularUsers(): \Generator
     {
-        yield ['GET', 'http://shopping2.local/en/admin_panel/'];
+        yield ['GET', 'http://shopping2.local/en/commune/admin_panel'];
     }
 
 }

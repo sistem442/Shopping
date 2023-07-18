@@ -13,6 +13,11 @@
                     <a href="/logout"
                        class="pure-menu-link">{{ 'logout'|trans }}</a>
                 </li>
+                {% if (is_granted('ROLE_ADMIN')) %}
+                    <li>
+                        <a href="/{{ app.request.locale }}/commune/admin_panel">Admin Panel</a>
+                    </li>
+                {% endif %}
             </ul>
         </div>
     </div>
