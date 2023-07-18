@@ -51,7 +51,7 @@
                 <td></td>
                 <td></td>
             </tr>
-            {% for product in paginator.results %}
+            {% for product in products %}
                 <tr class="product">
                     <td class="field"> {{ product.name }} </td>
                     <td class="field"> {{ product.description }} </td>
@@ -61,7 +61,7 @@
                     <td class="field"><a href="{{ path('product_delete', {id: product.id}) }}" onclick="ConfirmDelete()">delete</a></td>
                 </tr>
             {% endfor %}
-            {% if paginator.hasToPaginate %}
+            {#{% if paginator.hasToPaginate %}
                 <tr>
                     <td colspan="5">
                         <div class="navigation text-center">
@@ -95,7 +95,7 @@
             </div>
             </td>
         </tr>
-    {% endif %}
+    {% endif %}#}
     </table>
     </div>
     </div>

@@ -7,6 +7,7 @@ use App\Pagination\Paginator;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\Commune;
+use PhpParser\Node\Expr\Array_;
 
 /**
  * @extends ServiceEntityRepository<Product>
@@ -77,6 +78,75 @@ class ProductRepository extends ServiceEntityRepository
         return (new Paginator($qb))->paginate($page);
     }
 
+    public function findByYearMonth2(Commune $commune,$month,$year): \Doctrine\ORM\QueryBuilder
+    {
+        //initially use current month and year
+        if($year == 0)
+        {
+            $year = date("Y");
+        }
+
+        if($month == 0)
+        {
+            $month = date("m");
+        }
+
+        $number_of_days_in_month = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+
+        return $this->createQueryBuilder('p')
+            ->addSelect('u', 'c')
+            ->innerJoin('p.user', 'u')
+            ->innerJoin('u.commune', 'c')
+            ->where('c.id ='.$commune->getId())
+            ->andWhere("p.purchased_at >= '.$year.'-'.$month.'-01 00:00:00'" )
+            ->andWhere("p.purchased_at <= '.$year.'-'.$month.'-'.$number_of_days_in_month.' 23:59:59'" )
+            ->orderBy('p.user', 'DESC')
+        ;
+    }
+    public function findByYearMonth(Commune $commune,$month,$year): array
+    {
+        //initially use current month and year
+        if($year == 0)
+        {
+            $year = date("Y");
+        }
+
+        if($month == 0)
+        {
+            $month = date("m");
+        }
+
+        $number_of_days_in_month = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+
+        $qb = $this->createQueryBuilder('p')
+            ->addSelect('u', 'c')
+            ->innerJoin('p.user', 'u')
+            ->innerJoin('u.commune', 'c')
+            ->where('c.id ='.$commune->getId())
+            ->andWhere("p.purchased_at >= '$year-$month-01 00:00:00'" )
+            ->andWhere("p.purchased_at <= '$year-$month-$number_of_days_in_month 23:59:59'" )
+            ->orderBy('p.user', 'DESC')
+            ;
+        $query = $qb->getQuery();
+        dump($query);
+        //die();
+        return $query->execute();
+       /* $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT p
+            FROM App\Entity\Product p
+            INNER JOIN App\Entity\User on p.user_id = u.id
+            INNER JOIN App\Entity\Commune on u.commune_id = c.id
+            WHERE p.purchased_at >= '.$year.'-'.$month.'-01 00:00:00
+            AND p.purchased_at <= '.$year.'-'.$month.'-'.$number_of_days_in_month.' 23:59:59'
+        );
+        dump($query->getResult());
+        die();
+
+        // returns an array of Product objects
+        return $query->getResult();*/
+    }
 
 //    /**
 //     * @return Product[] Returns an array of Product objects

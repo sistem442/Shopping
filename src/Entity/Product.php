@@ -28,7 +28,7 @@ class Product
     private ?int $price = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private \DateTime $purchasedAt;
+    private \DateTime $purchased_at;
 
     #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(nullable: false)]
@@ -82,12 +82,12 @@ class Product
 
     public function getPurchasedAt(): \DateTime
     {
-        return $this->purchasedAt;
+        return $this->purchased_at;
     }
 
-    public function setPurchasedAt(\DateTime $purchasedAt): void
+    public function setPurchasedAt(\DateTime $purchased_at): void
     {
-        $this->purchasedAt = $purchasedAt;
+        $this->purchased_at = $purchased_at;
     }
 
     public function getUser(): ?User

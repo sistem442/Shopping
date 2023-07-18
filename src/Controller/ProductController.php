@@ -45,14 +45,6 @@ class ProductController extends AbstractController
         ]);
     }
 
-    //#[Route('/{_locale}/products/page/{page<[1-9]\d*>}', defaults: ['_format' => 'html'], name: 'products_paginated')]
-    public function findAll(ManagerRegistry $doctrine, int $page): Response
-    {
-        $products = $doctrine->getRepository(Product::class)->findAll($page);
-        return $this->render('product/products.html.twig', [
-            'paginator' => $products
-        ]);
-    }
 
     #[Route('/{_locale}/products/page/{page<[1-9]\d*>}', defaults: ['_format' => 'html'], name: 'products_paginated')]
     public function findByExampleField(#[CurrentUser] User $user,ManagerRegistry $doctrine, int $page): Response
@@ -65,26 +57,29 @@ class ProductController extends AbstractController
     }
 
 
-    #[Route('/{_locale}/product/{id}', name: 'product_show')]
-    public function show(ManagerRegistry $doctrine, int $id): Response
+    #[Route('/{_locale}/products/overview/{year}-{month}', name: 'overview')]
+    public function overview(
+        ManagerRegistry $doctrine,
+        #[CurrentUser] User $user,
+        int $month,
+        int $year
+    ): Response
     {
-        $product = $doctrine->getRepository(Product::class)->find($id);
+        dump($user);
+        dump($month);
+        dump($year);
+       $commune = $user->getCommune();
+       dump($commune);
+        //die();
 
-        if (!$product) {
-            throw $this->createNotFoundException(
-                'No product found for id '.$id
-            );
-        }
-
-        return new Response('Check out this great product: '.$product->getName());
-
-        // or render a template
-        // in the template, print things with {{ product.name }}
-        // return $this->render('product/show.html.twig', ['product' => $product]);
+        $products = $doctrine->getRepository(Product::class)->findByYearMonth($commune,$month,$year);
+        dump($products);
+        //die();
+        return $this->render('product/products.html.twig',['products'=>$products]);
     }
 
     #[Route('/{_locale}/product/edit/{id}', name: 'product_edit')]
-    public function edit(Request $request, EventDispatcherInterface $eventDispatcher, EntityManagerInterface $entityManager,int $id): Response
+    public function edit(Request $request, EntityManagerInterface $entityManager,int $id): Response
     {
         $product = $entityManager->getRepository(Product::class)->find($id);
 
