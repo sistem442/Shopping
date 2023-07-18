@@ -55,10 +55,9 @@
                                 {% for role in roommate.roles %}
                                     {%if(role == 'ROLE_ADMIN')%}
                                         Admin
-                                    {% elseif(role == "ROLE_USER") %}
+                                    {% elseif(role == "ROLE_USER" and 'ROLE_ADMIN' not in roommate.roles ) %}
                                         User
                                     {%endif%}
-                                    <br/>
                                 {% endfor %}
                             </td>
                             <td class="field"><button type="button" onclick="toggleAdmin({{roommate.id }})">toggle admin</button></td>
