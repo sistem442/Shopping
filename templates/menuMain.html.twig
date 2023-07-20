@@ -8,8 +8,8 @@
                        class="pure-menu-link">{{ 'product.add'|trans }}</a>
                 </li>
                 <li class="pure-menu-item">
-                    <a href="/{{ app.request.locale }}/products/page/1"
-                       class="pure-menu-link">{{ 'product.all'|trans }}</a>
+                    <a href="/{{ app.request.locale }}/products/overview/{{ date("Y")|date("Y") }}-{{ date("m")|date("m") }}"
+                       class="pure-menu-link">{{ 'product.one_commune'|trans }}</a>
                 </li>
                 <li class="pure-menu-item">
                     <a href="/logout"

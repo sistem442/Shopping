@@ -58,21 +58,23 @@ class ProductController extends AbstractController
 
 
     #[Route('/{_locale}/products/overview/{year}-{month}', name: 'overview')]
-    public function overview(
-        ManagerRegistry $doctrine,
-        #[CurrentUser] User $user,
-        int $month,
-        int $year
-    ): Response
+    public function overview(ManagerRegistry $doctrine,#[CurrentUser] User $user,int $month,int $year): Response
     {
-        dump($user);
-        dump($month);
-        dump($year);
        $commune = $user->getCommune();
-       dump($commune);
-        //die();
-
+       $counter = 0;
         $products = $doctrine->getRepository(Product::class)->findByYearMonth($commune,$month,$year);
+        /*dump($products);
+        foreach ($products as $product){
+            $date_time = $product->getPurchasedAt();
+            //$products_array [$counter]['date'] = $date_time->format("Y-m-d");
+            $products_array [$counter]['name'] = $product->getName();
+            $products_array [$counter]['description'] = $product->getDescription();
+            $products_array [$counter]['price'] = $product->getPrice();
+            $products_array [$counter]['user_name'] = $product->getUser()->getName();
+
+
+            $counter++;
+        }*/
         dump($products);
         //die();
         return $this->render('product/products.html.twig',['products'=>$products]);
