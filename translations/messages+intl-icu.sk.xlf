@@ -2,6 +2,26 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file source-language="en" target-language="sk" datatype="plaintext" original="file.ext">
         <body>
+            <trans-unit id="product.one_commune">
+                <source>product.one_commune</source>
+                <target>Prehľad</target>
+            </trans-unit>
+            <trans-unit id="no_products">
+                <source>no_products</source>
+                <target>Nenašli sa žiadne produkty pre daný rok a mesiac.</target>
+            </trans-unit>
+            <trans-unit id="date">
+                <source>date</source>
+                <target>Dátum</target>
+            </trans-unit>
+            <trans-unit id="admin_panel">
+                <source>admin_panel</source>
+                <target>Panel správcov</target>
+            </trans-unit>
+            <trans-unit id="search">
+                <source>search</source>
+                <target>Hľadať</target>
+            </trans-unit>
             <trans-unit id="add_commune">
                 <source>add_commune</source>
                 <target>Pridajte spoločný byt</target>

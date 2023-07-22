@@ -40,9 +40,9 @@ class LoginController extends AbstractController
         ]);
     }
     #[Route('/', name: 'homepage')]
-    public function homepage(AuthenticationUtils $authenticationUtils): Response
+    public function homepage(): Response
     {
-        return $this->redirectToRoute('login');
+        return $this->redirectToRoute('app_login');
 
     }
 

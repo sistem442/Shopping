@@ -506,6 +506,26 @@
                 <source>add_commune</source>
                 <target>Add Commune</target>
             </trans-unit>
+            <trans-unit id="search">
+                <source>search</source>
+                <target>Search</target>
+            </trans-unit>
+            <trans-unit id="admin_panel">
+                <source>admin_panel</source>
+                <target>Admin Panel</target>
+            </trans-unit>
+            <trans-unit id="date">
+                <source>date</source>
+                <target>Date</target>
+            </trans-unit>
+            <trans-unit id="no_products">
+                <source>no_products</source>
+                <target>No products for the given year and month found.</target>
+            </trans-unit>
+            <trans-unit id="product.one_commune">
+                <source>product.one_commune</source>
+                <target>Overview</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

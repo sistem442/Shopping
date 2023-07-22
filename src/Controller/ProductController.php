@@ -33,7 +33,6 @@ class ProductController extends AbstractController
 
         $form = $this->createForm(ProductType::class, $product, ['action' => $request->getRequestUri()]);
         $form->handleRequest($request);
-        //print_r($form);
         if ($form->isSubmitted() /*&& $form->isValid()*/) {
             $entityManager->persist($product);
             $entityManager->flush();
@@ -58,20 +57,14 @@ class ProductController extends AbstractController
 
 
     #[Route('/{_locale}/products/overview/{year}-{month}', name: 'overview')]
-    public function overview(Request $request,ManagerRegistry $doctrine,#[CurrentUser] User $user,int $month,int $year): Response
+    public function overview(ManagerRegistry $doctrine,#[CurrentUser] User $user,int $month,int $year): Response
     {
         $commune = $user->getCommune();
         $years = $doctrine->getRepository(Product::class)->findByCommuneId($commune);
-        dump($years);
-        //die();
         $products = $doctrine->getRepository(Product::class)->findByYearMonth($commune,$month,$year);
         return $this->render('product/products.html.twig', [
             'products'=>$products,'years'=>$years
         ]);
-
-
-
-
     }
 
     #[Route('/{_locale}/product/edit/{id}', name: 'product_edit')]
