@@ -58,26 +58,20 @@ class ProductController extends AbstractController
 
 
     #[Route('/{_locale}/products/overview/{year}-{month}', name: 'overview')]
-    public function overview(ManagerRegistry $doctrine,#[CurrentUser] User $user,int $month,int $year): Response
+    public function overview(Request $request,ManagerRegistry $doctrine,#[CurrentUser] User $user,int $month,int $year): Response
     {
-       $commune = $user->getCommune();
-       $counter = 0;
-        $products = $doctrine->getRepository(Product::class)->findByYearMonth($commune,$month,$year);
-        /*dump($products);
-        foreach ($products as $product){
-            $date_time = $product->getPurchasedAt();
-            //$products_array [$counter]['date'] = $date_time->format("Y-m-d");
-            $products_array [$counter]['name'] = $product->getName();
-            $products_array [$counter]['description'] = $product->getDescription();
-            $products_array [$counter]['price'] = $product->getPrice();
-            $products_array [$counter]['user_name'] = $product->getUser()->getName();
-
-
-            $counter++;
-        }*/
-        dump($products);
+        $commune = $user->getCommune();
+        $years = $doctrine->getRepository(Product::class)->findByCommuneId($commune);
+        dump($years);
         //die();
-        return $this->render('product/products.html.twig',['products'=>$products]);
+        $products = $doctrine->getRepository(Product::class)->findByYearMonth($commune,$month,$year);
+        return $this->render('product/products.html.twig', [
+            'products'=>$products,'years'=>$years
+        ]);
+
+
+
+
     }
 
     #[Route('/{_locale}/product/edit/{id}', name: 'product_edit')]
