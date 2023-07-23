@@ -2,6 +2,22 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file source-language="en" target-language="sk" datatype="plaintext" original="file.ext">
         <body>
+            <trans-unit id="product.edited_message">
+                <source>product.edited_message</source>
+                <target>Produkt bol úspešne zmenený!</target>
+            </trans-unit>
+            <trans-unit id="product.deleted_message">
+                <source>product.deleted_message</source>
+                <target>Produkt bol úspešne odstránený!</target>
+            </trans-unit>
+            <trans-unit id="product.success_message">
+                <source>product.success_message</source>
+                <target>Produkt bol úspešne pridaný!</target>
+            </trans-unit>
+            <trans-unit id="product.success">
+                <source>product.success</source>
+                <target>Úspech</target>
+            </trans-unit>
             <trans-unit id="product.paid">
                 <source>product.paid</source>
                 <target>Zaplatené</target>

@@ -33,14 +33,10 @@ class ProductControllerTest extends WebTestCase
 
     public function testProducts(): void
     {
-        $crawler = $this->client->request('GET', 'http://shopping2.local/de/products/page/1');
+        $crawler = $this->client->request('GET', 'http://shopping2.local/de/products/overview/2023-7');
 
         $this->assertResponseIsSuccessful();
 
-        $this->assertCount(
-            Paginator::PAGE_SIZE,
-            $crawler->filter('tr.product'),
-            'The products displays the right number of products.'
-        );
+        $this->assertElementValueEquals("selected", '2023','year is OK');
     }
 }

@@ -530,6 +530,22 @@
                 <source>product.paid</source>
                 <target>Paid</target>
             </trans-unit>
+            <trans-unit id="product.success">
+                <source>product.success</source>
+                <target>Product is successfully added!</target>
+            </trans-unit>
+            <trans-unit id="product.success_message">
+                <source>product.success_message</source>
+                <target>Success</target>
+            </trans-unit>
+            <trans-unit id="product.edited_message">
+                <source>product.edited_message</source>
+                <target>Product has been changed successfully!</target>
+            </trans-unit>
+            <trans-unit id="product.deleted_message">
+                <source>product.deleted_message</source>
+                <target>Product has been successfully deleted!</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

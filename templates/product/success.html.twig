@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ 'product.success'|trans }}{% endblock %}
+{% block body %}
+    <div class="row2">
+        {% include 'menu.html.twig' %}
+
+        <div class="col-9">
+            {% block main %}
+                <div style="margin: auto;width: 50% ">
+                    {% if message == 'added' %}
+                        {{ 'product.success_message'|trans }}
+                    {% elseif message == 'deleted' %}
+                        {{ 'product.deleted_message'|trans }}
+                    {% elseif message == 'edited' %}
+                        {{ 'product.edited_message'|trans }}
+                    {% else %}
+
+                    {% endif %}
+                </div>
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}

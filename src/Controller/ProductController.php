@@ -9,7 +9,6 @@ use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -37,24 +36,14 @@ class ProductController extends AbstractController
             $entityManager->persist($product);
             $entityManager->flush();
 
-            return $this->redirectToRoute('products_paginated', ['page' => 1]);
+            return $this->render('product/success.html.twig', [
+                'message' => 'added'
+            ]);
         }
         return $this->render('product/new.html.twig', [
             'form' => $form,
         ]);
     }
-
-
-    #[Route('/{_locale}/products/page/{page<[1-9]\d*>}', defaults: ['_format' => 'html'], name: 'products_paginated')]
-    public function findByExampleField(#[CurrentUser] User $user,ManagerRegistry $doctrine, int $page): Response
-    {
-        $commune = $user->getCommune();
-        $products = $doctrine->getRepository(Product::class)->findByExampleField($commune,$page);
-        return $this->render('product/products.html.twig', [
-            'paginator' => $products
-        ]);
-    }
-
 
     #[Route('/{_locale}/products/overview/{year}-{month}', name: 'overview')]
     public function overview(ManagerRegistry $doctrine,#[CurrentUser] User $user,int $month,int $year): Response
@@ -87,7 +76,9 @@ class ProductController extends AbstractController
                 $entityManager->persist($product);
             $entityManager->flush();
 
-            return $this->redirectToRoute('products_paginated', ['page' => 1]);
+            return $this->render('product/success.html.twig', [
+                'message' => 'edited'
+                ]);
         }
 
         return $this->render('product/new.html.twig', [
@@ -97,7 +88,7 @@ class ProductController extends AbstractController
     }
 
     #[Route('/{_locale}/product/delete/{id}', name: 'product_delete')]
-    public function deleteProduct(ManagerRegistry $doctrine, Request $request, EventDispatcherInterface $eventDispatcher, EntityManagerInterface $entityManager, int $id): Response
+    public function deleteProduct( EntityManagerInterface $entityManager, int $id): Response
     {
         $product = $entityManager->getRepository(Product::class)->find($id);
 
@@ -109,7 +100,9 @@ class ProductController extends AbstractController
 
         $entityManager->remove($product);
         $entityManager->flush();
-        return $this->redirectToRoute('products_paginated',['page'=>1]);
+        return $this->render('product/success.html.twig', [
+            'message' => 'deleted'
+        ]);
     }
 
     #[Route('/{_locale}/menu', name: 'menu')]
