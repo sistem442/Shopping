@@ -526,6 +526,10 @@
                 <source>product.one_commune</source>
                 <target>Overview</target>
             </trans-unit>
+            <trans-unit id="product.paid">
+                <source>product.paid</source>
+                <target>Paid</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

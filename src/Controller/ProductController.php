@@ -62,8 +62,10 @@ class ProductController extends AbstractController
         $commune = $user->getCommune();
         $years = $doctrine->getRepository(Product::class)->findByCommuneId($commune);
         $products = $doctrine->getRepository(Product::class)->findByYearMonth($commune,$month,$year);
+        $users = $doctrine->getRepository(Product::class)->findByUserMonth($commune,$month,$year);
+
         return $this->render('product/products.html.twig', [
-            'products'=>$products,'years'=>$years
+            'products'=>$products,'years'=>$years,'users'=>$users, 'month'=>$month, 'year'=>$year
         ]);
     }
 

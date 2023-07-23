@@ -2,9 +2,14 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file source-language="en" target-language="sr-Latn" datatype="plaintext" original="file.ext">
         <body>
+            <trans-unit id="product.paid">
+                <source>product.paid</source>
+                <target>Plaćeno</target>
+            </trans-unit>
             <trans-unit id="product.one_commune">
                 <source>product.one_commune</source>
-                <target>Pregled</target>
+                <target>Pregled
+                </target>
             </trans-unit>
             <trans-unit id="no_products">
                 <source>no_products</source>

@@ -7,7 +7,7 @@ use App\Pagination\Paginator;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\Commune;
-use PhpParser\Node\Expr\Array_;
+use App\Entity\User;
 
 /**
  * @extends ServiceEntityRepository<Product>
@@ -123,7 +123,6 @@ class ProductRepository extends ServiceEntityRepository
 
     public function findByCommuneId(Commune $commune):array
     {
-        $entityManager = $this->getEntityManager();
         $commune_id = $commune->getId();
         $conn = $this->getEntityManager()->getConnection();
 
@@ -131,12 +130,37 @@ class ProductRepository extends ServiceEntityRepository
                 FROM product p 
                 INNER JOIN user u on p.user_id = u.id 
                 INNER JOIN commune c on u.commune_id = c.id 
-                WHERE c.id = '.$commune_id;
+                WHERE c.id = ' . $commune_id;
 
         $resultSet = $conn->executeQuery($sql);
         return $resultSet->fetchAllAssociative();
     }
+    public function findByUserMonth(Commune $commune,$month,$year):array
+    {
+        $users = $commune->getUsers();
+        $number_of_days_in_month = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+        $start_date = $year."-".$month."-01 00:00:00";
+        $end_date = $year."-".$month."-".$number_of_days_in_month." 23:59:59";
+        $conn = $this->getEntityManager()->getConnection();
+        $result=[];
 
+        foreach ($users as $user)
+        {
+            $user_id =$user->getId();
+            $sql = "SELECT user.name, SUM(product.price) AS paid 
+                    FROM user
+                    LEFT JOIN product
+                    ON user.id = product.user_id 
+                    WHERE user.id = $user_id 
+                    AND product.purchased_at BETWEEN '$start_date' AND '$end_date';
+            ";
+
+            $resultSet = $conn->executeQuery($sql);
+            $result[$user_id]=$resultSet->fetchAllAssociative();
+
+        }
+        return $result;
+    }
 //    /**
 //     * @return Product[] Returns an array of Product objects
 //     */

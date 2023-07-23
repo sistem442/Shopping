@@ -51,56 +51,75 @@
     {% include 'menu.html.twig' %}
 
     <div class="col-9">
-        <form action="" id="search_form">
-            <select id="year" name="year">
-                {% for year  in years%}
-                    <option value="{{ year.year }}">{{ year.year }}</option>
-                {% endfor %}
-            </select>
-            <select id="month" name="month">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-            </select>
-            <a href="#" onclick="searchByYearAndMonth()">{{ 'search'|trans }}</a>
-        </form>
-    <div class="example-wrapper">
-        {% if (products) %}
-            <table>
-                <tr>
-                    <td> {{ 'product.name'|trans }} </td>
-                    <td> {{ 'product.description'|trans }} </td>
-                    <td> {{ 'product.price'|trans }} </td>
-                    <td> {{ 'product.user'|trans }} </td>
-                    <td> {{ 'date'|trans }} </td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                {% for product in products %}
-                    <tr class="product">
-                        <td class="field"> {{ product.name }} </td>
-                        <td class="field"> {{ product.description }} </td>
-                        <td class="field"> {{ product.price }} </td>
-                        <td class="field"> {{ product.user.name }} </td>
-                        <td class="field"> {{ product.getPurchasedAt()|date("Y-m-d")}} </td>
-                        <td class="field"><a href="{{ path('product_edit', {id: product.id}) }}">edit</a></td>
-                        <td class="field"><a href="{{ path('product_delete', {id: product.id}) }}" onclick="ConfirmDelete()">delete</a></td>
+        <div class="example-wrapper">
+            <form action="" id="search_form">
+                <select id="year" name="year">
+                    {% for i  in years%}
+                        <option value="{{ i.year }}"
+                                {% if (i.year == year) %}
+                                    selected
+                                {% endif %}
+                        >{{ i.year }}</option>
+                    {% endfor %}
+                </select>
+                <select id="month" name="month">
+                    {% for i in 1..12 %}
+                        <option value="{{ i }}"
+                            {% if (i == month) %}
+                                selected
+                            {% endif %}
+                        >{{ i }}</option>
+                    {% endfor %}
+                </select>
+                <a href="#" onclick="searchByYearAndMonth()">{{ 'search'|trans }}</a>
+            </form>
+            <div style="padding: 20px"></div>
+            {% if (products) %}
+                <table>
+                    <tr>
+                        <td>{{ 'product.name'|trans }}</td>
+                        <td>{{ 'product.paid'|trans }}</td>
                     </tr>
-                {% endfor %}
-            </table>
-        {% else %}
-            <div style="padding: 100px">{{ 'no_products'|trans }}</div>
-        {% endif %}
-    </div>
+                    {% for user in users %}
+                        <tr class="product">
+                            {% if user[0]["name"] %}
+                                <td>
+                                    {{ user[0]["name"] }}
+                                </td>
+                                <td>
+                                    {{ user[0]["paid"] }}
+                                </td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </table>
+                <div style="padding: 20px"></div>
+                <table>
+                    <tr>
+                        <td> {{ 'product.name'|trans }} </td>
+                        <td> {{ 'product.description'|trans }} </td>
+                        <td> {{ 'product.price'|trans }} </td>
+                        <td> {{ 'product.user'|trans }} </td>
+                        <td> {{ 'date'|trans }} </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    {% for product in products %}
+                        <tr class="product">
+                            <td class="field"> {{ product.name }} </td>
+                            <td class="field"> {{ product.description }} </td>
+                            <td class="field"> {{ product.price }} </td>
+                            <td class="field"> {{ product.user.name }} </td>
+                            <td class="field"> {{ product.getPurchasedAt()|date("Y-m-d")}} </td>
+                            <td class="field"><a href="{{ path('product_edit', {id: product.id}) }}">edit</a></td>
+                            <td class="field"><a href="{{ path('product_delete', {id: product.id}) }}" onclick="ConfirmDelete()">delete</a></td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% else %}
+                <div style="padding: 100px">{{ 'no_products'|trans }}</div>
+            {% endif %}
+        </div>
     </div>
 </div>
 {% endblock %}
