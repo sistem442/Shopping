@@ -87,7 +87,7 @@
                                     {{ user[0]["name"] }}
                                 </td>
                                 <td>
-                                    {{ user[0]["paid"] }}
+                                    {{ user[0]["paid"]/100 }} EUR
                                 </td>
                             {% endif %}
                         </tr>
@@ -106,7 +106,7 @@
                         <tr class="product">
                             <td class="field"> {{ product.name }} </td>
                             <td class="field"> {{ product.description }} </td>
-                            <td class="field"> {{ product.price }} </td>
+                            <td class="field"> {{ product.price/100 }} EUR </td>
                             <td class="field"> {{ product.user.name }} </td>
                             <td class="field"> {{ product.getPurchasedAt()|date("Y-m-d")}} </td>
                             {% if product.user.id == user_id%}
