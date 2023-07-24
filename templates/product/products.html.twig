@@ -101,8 +101,6 @@
                         <td> {{ 'product.price'|trans }} </td>
                         <td> {{ 'product.user'|trans }} </td>
                         <td> {{ 'date'|trans }} </td>
-                        <td></td>
-                        <td></td>
                     </tr>
                     {% for product in products %}
                         <tr class="product">
@@ -111,8 +109,14 @@
                             <td class="field"> {{ product.price }} </td>
                             <td class="field"> {{ product.user.name }} </td>
                             <td class="field"> {{ product.getPurchasedAt()|date("Y-m-d")}} </td>
-                            <td class="field"><a href="{{ path('product_edit', {id: product.id}) }}">edit</a></td>
-                            <td class="field"><a href="{{ path('product_delete', {id: product.id}) }}" onclick="ConfirmDelete()">delete</a></td>
+                            {% if product.user.id == user_id%}
+                                <td class="field">
+                                    <a href="{{ path('product_edit', {id: product.id}) }}">edit</a>
+                                </td>
+                                <td class="field">
+                                    <a href="{{ path('product_delete', {id: product.id}) }}" onclick="ConfirmDelete()">delete</a>
+                            </td>
+                            {% endif %}
                         </tr>
                     {% endfor %}
                 </table>
