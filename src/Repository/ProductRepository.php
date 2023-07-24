@@ -149,7 +149,7 @@ class ProductRepository extends ServiceEntityRepository
             $user_id =$user->getId();
             $sql = "SELECT user.name, SUM(product.price) AS paid 
                     FROM user
-                    LEFT JOIN product
+                    INNER JOIN product
                     ON user.id = product.user_id 
                     WHERE user.id = $user_id 
                     AND product.purchased_at BETWEEN '$start_date' AND '$end_date';

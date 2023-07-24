@@ -532,11 +532,11 @@
             </trans-unit>
             <trans-unit id="product.success">
                 <source>product.success</source>
-                <target>Product is successfully added!</target>
+                <target>Success</target>
             </trans-unit>
             <trans-unit id="product.success_message">
                 <source>product.success_message</source>
-                <target>Success</target>
+                <target>Product is successfully added!</target>
             </trans-unit>
             <trans-unit id="product.edited_message">
                 <source>product.edited_message</source>
