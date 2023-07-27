@@ -87,19 +87,39 @@ class UserController extends AbstractController
         return $this->redirectToRoute('app_register');
     }
 
-    #[Route('/{_locale}/admin/delete/{email}', name: 'user_delete')]
-    public function deleteUser( EntityManagerInterface $entityManager, string $email): Response
+    #[Route('/{_locale}/admin/activate_user/{id}', name: 'user_activate')]
+    public function activateUser( EntityManagerInterface $entityManager, int $id): Response
     {
-        $user = $entityManager->getRepository(User::class)->findOneBy(['email' => $email]);
+        $user = $entityManager->getRepository(User::class)->findOneBy(['id' => $id]);
 
         if (!$user) {
             throw $this->createNotFoundException(
-                'No user found for id ' . $email
+                'No user found for id ' . $id
             );
         }
 
-        $entityManager->remove($user);
+        $user->setIsActive(true);
+        $entityManager->persist($user);
         $entityManager->flush();
+
+        return $this->redirectToRoute('admin_panel');
+    }
+
+    #[Route('/{_locale}/admin/deactivate_user/{id}', name: 'user_deactivate')]
+    public function deactivateUser( EntityManagerInterface $entityManager, int $id): Response
+    {
+        $user = $entityManager->getRepository(User::class)->findOneBy(['id' => $id]);
+
+        if (!$user) {
+            throw $this->createNotFoundException(
+                'No user found for id ' . $id
+            );
+        }
+
+        $user->setIsActive(false);
+        $entityManager->persist($user);
+        $entityManager->flush();
+
         return $this->redirectToRoute('admin_panel');
     }
 }

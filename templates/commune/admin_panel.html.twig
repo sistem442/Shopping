@@ -1,12 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block title %}{{ 'admin_panel'|trans }}{% endblock %}
 {% block body %}
-    <script>
-        function ConfirmDelete()
-        {
-            return confirm("Are you sure you want to delete?");
-        }
-    </script>
     <style>
         table {
             border: 1px solid;
@@ -47,7 +41,8 @@
                         <td></td>
                         <td></td>
                     </tr>
-                    {% for roommate in roommates %}
+                    <tr class="produkt"><td class="field" colspan="5"> {{ 'active_members'|trans }}</td></tr>
+                    {% for roommate in active_roommates %}
                         <tr class="product">
                             <td class="field"> {{ roommate.name }} </td>
                             <td class="field"> {{ roommate.email }} </td>
@@ -61,9 +56,29 @@
                                 {% endfor %}
                             </td>
                             <td class="field"><button type="button" onclick="toggleAdmin({{roommate.id }})">toggle admin</button></td>
-                            <td class="field"><a href="{{ path('user_delete', {email: roommate.email}) }}" onclick="ConfirmDelete()">delete</a></td>
+                            <td class="field"><a href="{{ path('user_deactivate', {id: roommate.id}) }}" >deactivate</a></td>
                         </tr>
                     {% endfor %}
+                    {% if (inactive_roommates)%}
+                        <tr class="produkt"><td colspan="5" class="field"> {{ 'inactive_members'|trans }}</td></tr>
+                            {% for roommate in inactive_roommates %}
+                                <tr class="product">
+                                    <td class="field"> {{ roommate.name }} </td>
+                                    <td class="field"> {{ roommate.email }} </td>
+                                    <td class="field" id="{{ roommate.id }}">
+                                        {% for role in roommate.roles %}
+                                            {%if(role == 'ROLE_ADMIN')%}
+                                                Admin
+                                            {% elseif(role == "ROLE_USER" and 'ROLE_ADMIN' not in roommate.roles ) %}
+                                                User
+                                            {%endif%}
+                                        {% endfor %}
+                                    </td>
+                                    <td class="field"><button type="button" onclick="toggleAdmin({{roommate.id }})">toggle admin</button></td>
+                                    <td class="field"><a href="{{ path('user_activate', {id: roommate.id}) }}" >activate</a></td>
+                                </tr>
+                            {% endfor %}
+                    {% endif %}
                 </table>
             {% endblock %}
         </div>

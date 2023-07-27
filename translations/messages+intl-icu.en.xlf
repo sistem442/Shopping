@@ -546,6 +546,14 @@
                 <source>product.deleted_message</source>
                 <target>Product has been successfully deleted!</target>
             </trans-unit>
+            <trans-unit id="active_members">
+                <source>active_members</source>
+                <target>Active Members</target>
+            </trans-unit>
+            <trans-unit id="inactive_members">
+                <source>inactive_members</source>
+                <target>Inactive members</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

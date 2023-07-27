@@ -2,6 +2,14 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file source-language="en" target-language="sr-Latn" datatype="plaintext" original="file.ext">
         <body>
+            <trans-unit id="active_members">
+                <source>active_members</source>
+                <target>Aktivni članovi</target>
+            </trans-unit>
+            <trans-unit id="inactive_members">
+                <source>inactive_members</source>
+                <target>Neaktivni članovi</target>
+            </trans-unit>
             <trans-unit id="product.edited_message">
                 <source>product.edited_message</source>
                 <target>Proizvod je uspešno promenjen!</target>

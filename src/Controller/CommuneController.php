@@ -60,11 +60,20 @@ class CommuneController extends AbstractController
     #[Route('/{_locale}/commune/admin_panel', name: 'admin_panel')]
     public function admin_panel(ManagerRegistry $doctrine): Response
     {
-        if ($this->security->isGranted('ROLE_ADMIN')) {
+        if ($this->security->isGranted('ROLE_ADMIN'))
+        {
             $user = $this->getUser();
-            $roommates = $doctrine->getRepository(User::class)->findBy(['commune'=>$user->getCommune()]);
+            $active_roommates = $doctrine->getRepository(User::class)->findBy([
+                'commune'=>$user->getCommune(),
+                'is_active'=>true
+            ]);
+            $inactive_roommates = $doctrine->getRepository(User::class)->findBy([
+                'commune'=>$user->getCommune(),
+                'is_active'=>false
+            ]);
             return $this->render('commune/admin_panel.html.twig',[
-                'roommates'=>$roommates
+                'active_roommates'=>$active_roommates,
+                'inactive_roommates'=>$inactive_roommates
             ]);
         }
         else {

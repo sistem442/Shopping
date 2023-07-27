@@ -39,6 +39,6 @@ final class DefaultControllerTest extends WebTestCase
     public function getSecureUrls(): \Generator
     {
         yield ['http://shopping2.local/en/product/add'];
-        yield ['http://shopping2.local/en/products/page/1'];
+        yield ['http://shopping2.local/en/products/overview/2023-7'];
     }
 }
