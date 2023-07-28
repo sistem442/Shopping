@@ -82,11 +82,16 @@ class CommuneController extends AbstractController
     }
 
     #[Route('/{_locale}/commune/toggle_admin/{id}', name: 'toggle_admin')]
-    public function toggle_admin(int $id,Request $request,ManagerRegistry $doctrine, EntityManagerInterface $entityManager):Response
+    public function toggle_admin(int $id,ManagerRegistry $doctrine, EntityManagerInterface $entityManager):Response
     {
         $user = $doctrine->getRepository(User::class)->find($id);
         $roles = $user->getRoles();
         if($roles[0] == "ROLE_ADMIN") {
+            //check if it is last admin
+            if($this->count_admins($user,$doctrine) == 1)
+            {
+                return $this->json("last admin");
+            }
             $roles[0] = "ROLE_USER";
             $role = 'User';
         }
@@ -101,4 +106,16 @@ class CommuneController extends AbstractController
 
     }
 
+    public function count_admins(User $user, $doctrine):int
+    {
+        $users = $doctrine->getRepository(User::class)->findBy(['commune'=>$user->getCommune()]);
+        $how_many_admins = 0;
+
+        foreach ($users as $user)
+        {
+            $roles = $user->getRoles();
+            if(in_array("ROLE_ADMIN",$roles)){ $how_many_admins++;}
+        }
+        return $how_many_admins;
+    }
 }

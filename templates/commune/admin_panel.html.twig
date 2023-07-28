@@ -90,9 +90,14 @@
         var response;
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                response = this.responseText;
-                document.getElementById(id).innerHTML =
-                    response.substring(1, response.length-1);
+                response = String(this.responseText);
+                if( response === '"last admin"') {
+                    alert("There must be at least one admin in community!");
+                }
+                else{
+                    document.getElementById(id).innerHTML =
+                       response.substring(1, response.length-1);
+                }
             }
         };
         xhttp.open("GET", "/en/commune/toggle_admin/"+id);
