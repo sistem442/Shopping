@@ -36,7 +36,6 @@ class Product
 
     public function __construct()
     {
-        $this->purchasedAt = new \DateTime();
         $this->users = new ArrayCollection();
     }
     public function getId(): ?int

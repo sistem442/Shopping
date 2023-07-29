@@ -21,27 +21,9 @@ class AdminCommuneRegistrationType extends AbstractType
         $builder->add('commune_name', TextType::class,['label'=>'Commune name']);
         $builder->add('user_name', TextType::class,['label'=>'User name']);
         $builder->add('email',TextType::class);
-        $builder->add('agreeTerms', CheckboxType::class, [
-            'mapped' => false,
-            'constraints' => [
-                new IsTrue([
-                    'message' => 'You should agree to our terms.',
-                ]),
-            ],
-        ]);
+        $builder->add('agreeTerms', CheckboxType::class);
         $builder->add('plainPassword', PasswordType::class, [
-            'attr' => ['autocomplete' => 'new-password'],
-            'constraints' => [
-                new NotBlank([
-                    'message' => 'Please enter a password',
-                ]),
-                new Length([
-                    'min' => 6,
-                    'minMessage' => 'Your password should be at least {{ limit }} characters',
-                    // max length allowed by Symfony for security reasons
-                    'max' => 4096,
-                ]),
-            ],
+            'attr' => ['autocomplete' => 'new-password']
         ]);
         $builder->add('save', SubmitType::class);
     }

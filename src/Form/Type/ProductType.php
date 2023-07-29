@@ -4,6 +4,7 @@ namespace App\Form\Type;
 
 use App\Entity\Product;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -19,7 +20,7 @@ class ProductType extends AbstractType
             ->add('name', TextType::class)
             ->add('description', TextType::class)
             ->add('price', MoneyType::class, ['divisor' => 100])
-            ->add('purchased_at', DateType::class, array(
+            ->add('purchased_at', DateTimeType::class, array(
                 'label' => false,
                 'attr' => array(
                     'class' => 'min date',

@@ -28,11 +28,10 @@ class CommuneController extends AbstractController
 
         $form = $this->createForm(AdminCommuneRegistrationType::class, $commune_admin, ['action' => $request->getRequestUri()]);
         $form->handleRequest($request);
-        //print_r($form);
         if ($form->isSubmitted() && $form->isValid()) {
-            $commune->setName($commune_admin->commune_name);
-            $user->setName($commune_admin->user_name);
-            $user->setEmail($commune_admin->email);
+            $commune->setName($commune_admin->getCommuneName());
+            $user->setName($commune_admin->getUserName());
+            $user->setEmail($commune_admin->getEmail());
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
