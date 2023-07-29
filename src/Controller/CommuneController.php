@@ -29,7 +29,7 @@ class CommuneController extends AbstractController
         $form = $this->createForm(AdminCommuneRegistrationType::class, $commune_admin, ['action' => $request->getRequestUri()]);
         $form->handleRequest($request);
         //print_r($form);
-        if ($form->isSubmitted() /*&& $form->isValid()*/) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $commune->setName($commune_admin->commune_name);
             $user->setName($commune_admin->user_name);
             $user->setEmail($commune_admin->email);
@@ -41,6 +41,7 @@ class CommuneController extends AbstractController
             );
             $user->setRoles(['ADMIN']);
             $user->setCommune($commune);
+            $user->setIsActive(true);
             $entityManager->persist($commune);
             $entityManager->persist($user);
             $entityManager->flush();

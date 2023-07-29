@@ -32,7 +32,7 @@ class ProductController extends AbstractController
 
         $form = $this->createForm(ProductType::class, $product, ['action' => $request->getRequestUri()]);
         $form->handleRequest($request);
-        if ($form->isSubmitted() /*&& $form->isValid()*/) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($product);
             $entityManager->flush();
 
@@ -85,7 +85,6 @@ class ProductController extends AbstractController
         return $this->render('product/new.html.twig', [
             'form' => $form,
         ]);
-        //TODO add here else with error messages for form
     }
 
     #[Route('/{_locale}/product/delete/{id}', name: 'product_delete')]

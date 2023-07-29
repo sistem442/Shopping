@@ -45,6 +45,7 @@ class UserController extends AbstractController
             $commune_form = $form->get('communes');
             $commune = $commune_form->getData('modelData');
             $user->setCommune($commune);
+            $user->setIsActive(true);
 
             $entityManager->persist($user);
             $entityManager->flush();

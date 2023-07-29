@@ -1,0 +1,43 @@
+App\Entity\Product:
+  properties:
+    name:
+      - NotBlank: ~
+      - Length:
+          min: 3
+          max: 50
+    description:
+      - NotBlank: ~
+      - Length:
+         min: 3
+         max: 50
+    price:
+      - NotBlank: ~
+      - Positive: ~
+    purchased_at:
+      - NotBlank: ~
+      - Type: \DateTimeInterface
+App\Entity\AdminCommuneRegistration:
+  properties:
+    commune_name:
+      - NotBlank: ~
+      - Length:
+          min: 3
+          max: 50
+    user_name:
+      - NotBlank: ~
+      - Length:
+          min: 3
+          max: 50
+    email:
+      - Email:
+          message: The email "{{ value }}" is not a valid email.
+App\Entity\UserCommuneRegistration:
+  properties:
+    user_name:
+      - NotBlank: ~
+      - Length:
+          min: 3
+          max: 50
+    email:
+      - Email:
+          message: The email "{{ value }}" is not a valid email.
