@@ -2,6 +2,14 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file source-language="en" target-language="de" datatype="plaintext" original="file.ext">
         <body>
+            <trans-unit id="Create new commune">
+                <source>Create new commune</source>
+                <target>Neue WG gründen</target>
+            </trans-unit>
+            <trans-unit id="Join commune">
+                <source>Join commune</source>
+                <target>Treten der WG bei</target>
+            </trans-unit>
             <trans-unit id="active_members">
                 <source>active_members</source>
                 <target>Aktive Mitglieder</target>

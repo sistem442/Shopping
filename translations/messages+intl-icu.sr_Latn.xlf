@@ -2,6 +2,14 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file source-language="en" target-language="sr-Latn" datatype="plaintext" original="file.ext">
         <body>
+            <trans-unit id="Create new commune">
+                <source>Create new commune</source>
+                <target>Stvorite novu komunu</target>
+            </trans-unit>
+            <trans-unit id="Join commune">
+                <source>Join commune</source>
+                <target>Pridružite se zajednici</target>
+            </trans-unit>
             <trans-unit id="active_members">
                 <source>active_members</source>
                 <target>Aktivni članovi</target>

@@ -1,26 +1,167 @@
-{% extends 'base.html.twig' %}
-
 {% block body %}
-    {% if error %}
-        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+    <style>
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+        }
 
-    <form action="{{ path('app_login') }}" method="post">
-        <label for="username">{{ 'label.email'|trans }}</label>
-        <input type="text" id="username" name="_username" value="{{ last_username }}">
+        li {
+            float: left;
+        }
 
-        <label for="password">{{ 'label.password'|trans }}</label>
-        <input type="password" id="password" name="_password">
+        li a, .dropbtn {
+            display: inline-block;
+            color: #008000;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-family: Noto Sans, serif;
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;
+            background-color: white;
+            border: none;
+        }
 
-        {# If you want to control the URL the user is redirected to on success
-        <input type="hidden" name="_target_path" value="/account"> #}
+        li a:hover, .dropdown:hover .dropbtn {
+            background-color: #3e8e41;
+        }
 
-        <button type="submit">login</button>
-    </form>
-    <div style="padding: 20px">
-        <a href="/{{ app.request.locale }}/commune/new">{{ 'Create new commune'|trans }}</a>
-    </div>
-    <div style="padding: 20px">
-        <a href="/{{ app.request.locale }}/register">{{ 'Join commune'|trans }}</a>
+        li.dropdown {
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .language-icon {
+            display: inline-flex;
+            padding-left: 10px;
+        }
+
+        .language {
+
+        }
+
+        .logo {
+            padding-bottom: 30px;
+            margin: 20px auto;
+        }
+
+    </style>
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+    <script type="application/javascript">
+        function replaceT(obj) {
+            var newO = document.createElement('input');
+            newO.setAttribute('type', 'password');
+            newO.setAttribute('class', 'textbox');
+            newO.setAttribute('name', obj.getAttribute('name'));
+            newO.addEventListener("onblur", function () {
+                newO.parentNode.replaceChild(obj, newO)
+            }, false);
+            obj.parentNode.replaceChild(newO, obj);
+            newO.focus();
+        }
+    </script>
+
+
+    <div class="main" style="width: 414px;">
+        <div class="dropdown">
+            <div class="language">
+                <div class="logo">
+                    <img src="/files/logo.png" alt="logo">
+                </div>
+                <button class="dropbtn">Choose language</button>
+                <div class="language-icon">
+                    <img src="/files/icon _language.png" alt="language icon">
+                </div>
+            </div>
+            <div class="dropdown-content">
+                {% for locale in locales() %}
+                    <a href="{{ path(app.request.get('_route', 'products_paginated'), app.request.get('_route_params', [])|merge({_locale: locale.code})) }}">
+                        {{ locale.name|capitalize }} <small>{{ locale.code[0:2] }}</small>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+
+        {% if error %}
+            <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+
+        <form action="{{ path('app_login') }}" method="post">
+            <div class="input_placeholder">
+                <div class="input_frame">
+                    <input
+                            class="input_field"
+                            type="text"
+                            id="username"
+                            name="_username"
+                            value="{{ last_username }}"
+                            onfocus="this.value=''"
+                    >
+                </div>
+            </div>
+            <div class="input_placeholder">
+                <div class="input_frame">
+                    <input
+                            class="input_field"
+                            type="password"
+                            id="password"
+                            name="_password"
+                            value="Password..."
+                            onfocus="this.type='password'"
+                    >
+                </div>
+            </div>
+            <div class="input_placeholder">
+                <button class="button_green button_generic" type="submit">{{ 'login'|trans }}</button>
+            </div>
+
+
+        </form>
+        <div class="input_placeholder">
+            <button class="button_white button_generic"
+                    onclick="window.location.href='/{{ app.request.locale }}/commune/new';">
+                {{ 'Create new commune'|trans }}
+            </button>
+        </div>
+        <div class="input_placeholder">
+            <button class="button_white button_generic"
+                    onclick="window.location.href='/{{ app.request.locale }}/register';">
+                {{ 'Join commune'|trans }}
+            </button>
+        </div>
     </div>
 {% endblock %}
