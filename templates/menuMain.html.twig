@@ -1,26 +1,66 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    <div class="col-3">
-        <div class=" pure-menu custom-display">
-            <ul class="pure-menu-list">
-                <li class="pure-menu-item">
-                    <a href="/{{ app.request.locale }}/product/add"
-                       class="pure-menu-link">{{ 'product.add'|trans }}</a>
-                </li>
-                <li class="pure-menu-item">
-                    <a href="/{{ app.request.locale }}/products/overview/{{ date("Y")|date("Y") }}-{{ date("m")|date("m") }}"
-                       class="pure-menu-link">{{ 'product.one_commune'|trans }}</a>
-                </li>
-                <li class="pure-menu-item">
-                    <a href="/logout"
-                       class="pure-menu-link">{{ 'logout'|trans }}</a>
-                </li>
-                {% if (is_granted('ROLE_ADMIN')) %}
-                    <li>
-                        <a href="/{{ app.request.locale }}/commune/admin_panel">Admin Panel</a>
-                    </li>
-                {% endif %}
-            </ul>
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+    <script type="application/javascript">
+        function replaceT(obj) {
+            var newO = document.createElement('input');
+            newO.setAttribute('type', 'password');
+            newO.setAttribute('class', 'textbox');
+            newO.setAttribute('name', obj.getAttribute('name'));
+            newO.addEventListener("onblur", function () {
+                newO.parentNode.replaceChild(obj, newO)
+            }, false);
+            obj.parentNode.replaceChild(newO, obj);
+            newO.focus();
+        }
+    </script>
+
+
+    <div class="container-fluid" style="width: 414px;">
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-8">
+                <div class="row">
+                    <div class="d-flex align-items-center logo">
+                        <img src="/files/logo.png" alt="logo" class="mx-auto">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input_placeholder">
+                        <button class="button_white button_generic"
+                                onclick="window.location.href='/{{ app.request.locale }}/product/add';">
+                            {{ 'product.add'|trans }}
+
+                        </button>
+                    </div>
+                    <div class="input_placeholder">
+                        <button class="button_white button_generic"
+                                onclick="window.location.href='/{{ app.request.locale }}/products/overview/{{ date("Y")|date("Y") }}-{{ date("m")|date("m") }}';">
+                            {{ 'product.one_commune'|trans }}
+                        </button>
+                    </div>
+                    <div class="input_placeholder">
+                        <button class="button_white button_generic"
+                                onclick="window.location.href='/logout';">
+                            {{ 'logout'|trans }}
+                        </button>
+                    </div>
+                    {% if (is_granted('ROLE_ADMIN')) %}
+                        <div class="input_placeholder">
+                            <button class="button_white button_generic"
+                                    onclick="window.location.href='/{{ app.request.locale }}/commune/admin_panel';">
+                                Admin Panel
+                            </button>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-2"></div>
         </div>
     </div>
 {% endblock %}
