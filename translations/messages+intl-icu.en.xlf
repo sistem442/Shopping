@@ -20,7 +20,7 @@
             </trans-unit>
             <trans-unit id="login">
                 <source>login</source>
-                <target>login</target>
+                <target>Login</target>
             </trans-unit>
             <trans-unit id="logout">
                     <source>logout</source>

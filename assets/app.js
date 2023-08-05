@@ -12,5 +12,5 @@ import greet from './greet';
 $(document).ready(function() {
     $('body').prepend('<h1>'+greet('jill')+'</h1>');
 });*/
-import './styles/app.css';
-//import './styles/menu.css';
+//import './styles/app.css';
+//import './styles/language.css';

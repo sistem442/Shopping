@@ -6,6 +6,14 @@
     display: inline-flex;
     padding: 15px;
 }
+.input_placeholder{
+    width: 274px;
+    height: 64px;
+    justify-content: center;
+    align-items: center;
+    display: inline-flex;
+    padding: 15px;
+}
 .input_frame{
     padding: 15px;
     background: white;
@@ -33,7 +41,6 @@ textarea:focus, input:focus{
 .button_generic {
     width: 274px;
     height: 49px;
-    padding: 15px;
     border-radius: 40px;
     overflow: hidden;
     justify-content: center;
@@ -44,7 +51,9 @@ textarea:focus, input:focus{
     font-size: 20px;
     font-family: Noto Sans, serif;
     font-weight: 400;
-    word-wrap: break-word
+    word-wrap: break-word;
+    display: table-cell;
+    vertical-align: middle
 }
 .button_green{
     background: #008000;
@@ -62,5 +71,16 @@ textarea:focus, input:focus{
 .button_white:hover{
     background: #8b949e;
     cursor:pointer;
+}
+
+.error_message{
+    color:  #800000;
+
+    /* NotoS-Regular-13px */
+    font-family: Noto Sans, serif;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
 }
 
