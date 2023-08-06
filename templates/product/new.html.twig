@@ -1,8 +1,9 @@
 {% extends 'base.html.twig' %}
 {% block title %}{{ 'add_product'|trans }}{% endblock %}
 {% block body %}
+    {% include 'menu.html.twig' %}
     <div class="row2">
-        {% include 'menu.html.twig' %}
+
 
         <div class="col-9">
             {% block main %}

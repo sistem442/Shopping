@@ -1,19 +1,11 @@
 .input_placeholder{
     width: 274px;
-    height: 54px;
     justify-content: center;
     align-items: center;
     display: inline-flex;
     padding: 15px;
 }
-.input_placeholder{
-    width: 274px;
-    height: 64px;
-    justify-content: center;
-    align-items: center;
-    display: inline-flex;
-    padding: 15px;
-}
+
 .input_frame{
     padding: 15px;
     background: white;

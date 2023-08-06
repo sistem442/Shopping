@@ -49,7 +49,7 @@ class LoginControllerTest extends WebTestCase
         $this->client->loginUser($user);
         $this->client->request('GET', 'http://shopping2.local/de/menu');
         $this->assertResponseIsSuccessful();
-        $this->assertSelectorTextContains("small", 'de','login is working');
+        $this->assertSelectorTextContains(".button_white", 'Ein Produkt hinzufügen','login is not working');
     }
     /**
      * @dataProvider getUrlsForRegularUsers

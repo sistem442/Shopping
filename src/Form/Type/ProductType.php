@@ -20,7 +20,7 @@ class ProductType extends AbstractType
             ->add('name', TextType::class)
             ->add('description', TextType::class)
             ->add('price', MoneyType::class, ['divisor' => 100])
-            ->add('purchased_at', DateTimeType::class, array(
+            ->add('purchased_at', DateType::class, array(
                 'label' => false,
                 'attr' => array(
                     'class' => 'min date',

@@ -1,23 +1,44 @@
-    <div class="col-3">
-        <div class=" pure-menu custom-display">
-            <ul class="pure-menu-list">
-                <li class="pure-menu-item">
-                    <a href="/{{ app.request.locale }}/product/add"
-                       class="pure-menu-link">{{ 'product.add'|trans }}</a>
-                </li>
-                <li class="pure-menu-item">
-                    <a href="/{{ app.request.locale }}/products/overview/{{ date("Y")|date("Y") }}-{{ date("m")|date("m") }}"
-                       class="pure-menu-link">{{ 'product.one_commune'|trans }}</a>
-                </li>
-                <li class="pure-menu-item">
-                    <a href="/logout"
-                       class="pure-menu-link">{{ 'logout'|trans }}</a>
-                </li>
-                {% if (is_granted('ROLE_ADMIN')) %}
-                    <li>
+{% block head %}
+    <link rel="stylesheet" href="/styles/menu.css">
+{% endblock %}
+<nav class="navbar2">
+    <!-- LOGO -->
+    <div class="logo"><img src="/files/logo.png" width="107px"></div>
+    <!-- NAVIGATION MENU -->
+    <ul class="nav-links">
+        <!-- USING CHECKBOX HACK -->
+        <input type="checkbox" id="checkbox_toggle"/>
+        <label for="checkbox_toggle" class="hamburger">
+            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
+                <path d="M4.5 27H31.5V24H4.5V27ZM4.5 19.5H31.5V16.5H4.5V19.5ZM4.5 9V12H31.5V9H4.5Z" fill="#999999"/>
+            </svg>
+        </label>
+        <!-- NAVIGATION MENUS -->
+        <div class="menu">
+            <li>
+                <div class="input_placeholder input_frame">
+                    <a href="/{{ app.request.locale }}/product/add">{{ 'product.add'|trans }}</a>
+                </div>
+            </li>
+            <li>
+                <div class="input_placeholder input_frame">
+                    <a href="/{{ app.request.locale }}/products/overview/{{ date("Y")|date("Y") }}-{{ date("m")|date("m") }}">
+                        {{ 'product.one_commune'|trans }}
+                    </a>
+                </div>
+            </li>
+            <li>
+                <div class="input_placeholder input_frame">
+                    <a href="/logout">{{ 'logout'|trans }}</a>
+                </div>
+            </li>
+            {% if (is_granted('ROLE_ADMIN')) %}
+                <li>
+                    <div class="input_placeholder input_frame">
                         <a href="/{{ app.request.locale }}/commune/admin_panel">Admin Panel</a>
-                    </li>
-                {% endif %}
-            </ul>
+                    </div>
+                </li>
+            {% endif %}
         </div>
-    </div>
+    </ul>
+</nav>

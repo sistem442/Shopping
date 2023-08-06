@@ -42,8 +42,8 @@ class ProductControllerTest extends WebTestCase
     public function testMenu():void
     {
         $this->client->request('GET', 'http://shopping2.local/de/menu');
-        $this->assertSelectorExists(".pure-menu-item", 'Menu is not working!');
-        $this->assertSelectorCount(3, ".pure-menu-item", 'Count of menu items is wrong!');
+        $this->assertSelectorExists(".button_white", 'Menu is not working!');
+        $this->assertSelectorCount(4, ".button_white", 'Count of menu items is wrong!');
     }
 
     public function testAddProdukt():void
