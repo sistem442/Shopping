@@ -42,6 +42,7 @@ class ProductController extends AbstractController
         }
         return $this->render('product/new.html.twig', [
             'form' => $form,
+            'name' => 'Name'
         ]);
     }
 

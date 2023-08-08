@@ -18,12 +18,15 @@ class AdminCommuneRegistrationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->add('commune_name', TextType::class,['label'=>'Commune name']);
-        $builder->add('user_name', TextType::class,['label'=>'User name']);
-        $builder->add('email',TextType::class);
-        $builder->add('agreeTerms', CheckboxType::class);
+        $builder->add('commune_name', TextType::class,[
+            'label'=>false
+        ]);
+        $builder->add('user_name', TextType::class,['label'=>false]);
+        $builder->add('email',TextType::class,['label'=>false]);
+        $builder->add('agreeTerms', CheckboxType::class,['label'=>false]);
         $builder->add('plainPassword', PasswordType::class, [
-            'attr' => ['autocomplete' => 'new-password']
+            'attr' => ['autocomplete' => 'new-password'],
+            'label'=>false
         ]);
         $builder->add('save', SubmitType::class);
     }

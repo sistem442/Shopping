@@ -29,4 +29,16 @@
     </button>
 </div>
 {% endblock %}
-
+{% block checkbox_widget %}
+<div class="input_placeholder" style="width: 244px; background-color: white;">
+    <input type="checkbox" id="{{ id }}"     name="{{ full_name }}"/>
+    <label style="color: #999999;" for="{{ id }}"> {{ 'Agree Terms'|trans }}</label>
+</div>
+{% endblock %}
+{% block password_widget %}
+    <div class="input_placeholder" style="width: 244px; background-color: white;">
+        <div class="input_frame" style="width: 244px; background-color: white;">
+            <input type="password" id="{{ id }}" class="input_field"    name="{{ full_name }}" placeholder="{{ 'Password'|trans }}"/>
+        </div>
+    </div>
+{% endblock %}

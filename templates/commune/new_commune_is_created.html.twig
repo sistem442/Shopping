@@ -1,13 +1,18 @@
 {% extends 'base.html.twig' %}
 {% block title %}Success!{% endblock %}
 {% block body %}
-    <div class="row2">
-
-        <div class="col-9">
-            You have successfully created a new commune!
-            <br/>
-            <br/>
-            <a href="/{{ app.request.locale }}/login">{{ 'login'| trans }}</a>
+    <div class="container" style="width: 414px;">
+        <div class="row" style="padding-top: 150px">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+                {{ 'you_have_successfully_created_a_new_commune'|trans|raw }}
+                <div class="input_placeholder" style="padding-top: 150px">
+                    <button class="button_green button_generic"
+                            onclick="window.location.href='/{{ app.request.locale }}/login';">
+                        {{ 'login'| trans }}
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

@@ -562,6 +562,10 @@
                 <source>Join commune</source>
                 <target>Join commune</target>
             </trans-unit>
+            <trans-unit id="you_have_successfully_created_a_new_commune">
+                <source>you_have_successfully_created_a_new_commune</source>
+                <target>You have successfully created a new commune!</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
