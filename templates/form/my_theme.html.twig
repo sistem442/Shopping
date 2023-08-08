@@ -1,44 +1,68 @@
 {% block text_widget %}
-    <div class="input_placeholder"   style="width: 244px; background-color: white;">
+    <div class="input_placeholder" style="width: 244px; background-color: white;">
         <div class="input_frame" style="width: 244px; background-color: white;">
-            <input type="text" class="input_field" id="{{ id }}" name="{{ full_name }}" placeholder="{{name}}"/>
+            <input type="text" class="input_field" id="{{ id }}" name="{{ full_name }}" placeholder="{{ name }}"/>
         </div>
     </div>
 {% endblock %}
 {% block money_widget %}
-    <div class="input_placeholder"   style="width: 244px; background-color: white;">
+    <div class="input_placeholder" style="width: 244px; background-color: white;">
         <div class="input_frame" style="width: 244px; background-color: white;">
-            <input type="text" class="input_field" id="{{ id }}" name="{{ full_name }}" placeholder="{{name}}"/>
+            <input type="text" class="input_field" id="{{ id }}" name="{{ full_name }}" placeholder="{{ name }}"/>
         </div>
     </div>
 {% endblock %}
-{% block date_widget%}
-<div class="input_placeholder"   style="width: 244px; background-color: white;">
-    <div class="input_frame" style="width: 244px; background-color: white;">
-        <input data-provide="datepicker" id="{{ id }}" name="{{ full_name }}" class="input_field" style="width: 250px" placeholder="date">
-        <div style="float: right"><img src="/files/icon _calendar.png" alt="language icon"></div>
-    </div>
+{% block date_widget %}
+    <div class="input_placeholder" style="width: 244px; background-color: white;">
+        <div class="input_frame" style="width: 244px; background-color: white;">
+            <input data-provide="datepicker" id="{{ id }}" name="{{ full_name }}" class="input_field"
+                   style="width: 250px" placeholder="date">
+            <div style="float: right"><img src="/files/icon _calendar.png" alt="language icon"></div>
+        </div>
 
-</div>
+    </div>
 {% endblock %}
 {% block submit_widget %}
-<div class="input_placeholder" style="width: 244px; background-color: white;">
-    <button class="button_green button_generic" id="{{ id }}" name="{{ full_name }}"
-            onclick="window.form.submit()">
-        Save
-    </button>
-</div>
+    <div class="input_placeholder" style="width: 244px; background-color: white;">
+        <button class="button_green button_generic" id="{{ id }}" name="{{ full_name }}"
+                onclick="window.form.submit()">
+            Save
+        </button>
+    </div>
 {% endblock %}
 {% block checkbox_widget %}
-<div class="input_placeholder" style="width: 244px; background-color: white;">
-    <input type="checkbox" id="{{ id }}"     name="{{ full_name }}"/>
-    <label style="color: #999999;" for="{{ id }}"> {{ 'Agree Terms'|trans }}</label>
-</div>
+    <div class="input_placeholder" style="width: 244px; background-color: white;">
+        <input type="checkbox" id="{{ id }}" name="{{ full_name }}"/>
+        <label style="color: #999999;" for="{{ id }}"> {{ 'Agree Terms'|trans }}</label>
+    </div>
 {% endblock %}
 {% block password_widget %}
     <div class="input_placeholder" style="width: 244px; background-color: white;">
         <div class="input_frame" style="width: 244px; background-color: white;">
-            <input type="password" id="{{ id }}" class="input_field"    name="{{ full_name }}" placeholder="{{ 'Password'|trans }}"/>
+            <input type="password" id="{{ id }}" class="input_field" name="{{ full_name }}"
+                   placeholder="{{ 'Password'|trans }}"/>
         </div>
     </div>
 {% endblock %}
+{% block choice_widget %}
+    {% set attr = form.vars.attr %}
+
+    <div>
+        <div class="input_placeholder" style="width: 244px; background-color: white;">
+            <div class="input_frame" style="width: 244px; background-color: white;">
+                <select id="{{ id }}" name="{{ full_name }}" class="input_field" style=" background-color: white;">
+                    {% for option in attr %}
+                        <option value="{{ option['id'] }}">{{ option['name'] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+<!--select id="user_commune_registration_communes"
+        name="user_commune_registration[communes]"
+        0="Erste WG"
+        1="Zweite WG" 2="S" 3="S" 4="S" 5="S" 6="S" 7="S" 8="Siebte WG" 9="Siebte WG" 10="Siebte WG" 11="Siebte WG" 12="Siebte WG"><option value="1">Erste WG</option><option value="2">Zweite WG</option><option value="19">S</option><option value="20">S</option><option value="21">S</option><option value="22">S</option><option value="23">S</option><option value="24">S</option><option value="25">Siebte WG</option><option value="26">Siebte WG</option><option value="27">Siebte WG</option><option value="28">Siebte WG</option><option value="29">Siebte WG</option></select></div>
+<div>    <div class="input_placeholder" style="width: 244px; background-color: white;">
+-->

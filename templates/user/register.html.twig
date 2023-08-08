@@ -3,23 +3,39 @@
 {% block title %}{{ 'register'|trans }}{% endblock %}
 
 {% block body %}
-    {% for flash_error in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-    {% endfor %}
-
-    <h1>{{ 'register'|trans }}</h1>
-
-    {{ form_errors(registrationForm) }}
-
-    {{ form_start(registrationForm) }}
-    <div style="padding: 20px">{{ form_row(registrationForm.email) }}</div>
-    <div style="padding: 20px">{{ form_row(registrationForm.plainPassword)}}</div>
-    <div style="padding: 20px">{{ form_row(registrationForm.user_name) }}</div>
-    <div style="padding: 20px">{{ form_row(registrationForm.communes) }}</div>
-    <div style="padding: 20px">{{ form_row(registrationForm.agreeTerms) }}</div>
-    <button type="submit" class="btn">{{ 'register'|trans }}</button>
-    {{ form_end(registrationForm) }}
-    <div style="padding: 40px">
-        <a  href="/{{ app.request.locale }}/login">{{ 'login'|trans }}</a>
+    <div class="container" style="width: 414px;">
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+                {% for flash_error in app.flashes('verify_email_error') %}
+                    <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+                {% endfor %}
+                <div class="row" style="text-align: center">
+                    <div class="page_name">{{ 'register'|trans }}</div>
+                    {{ form_errors(registrationForm) }}
+                    {{ form_start(registrationForm, {'attr': {'id': 'registration'}}) }}
+                    {{ form_row(registrationForm.email) }}
+                    {{ form_row(registrationForm.plainPassword) }}
+                    {{ form_row(registrationForm.user_name) }}
+                    {{ form_row(registrationForm.communes) }}
+                    {{ form_row(registrationForm.agreeTerms) }}
+                    {{ form_end(registrationForm) }}
+                    <div style="padding: 12px">
+                        <div class="input_placeholder" style="width: 244px">
+                            <button form="registration" class="button_green button_generic" type="submit">
+                                {{ 'register'|trans }}
+                            </button>
+                        </div>
+                        <div class="input_placeholder" style="width: 244px">
+                            <button class="button_white button_generic"
+                                    onclick="window.location.href='/{{ app.request.locale }}/login';">
+                                {{ 'login'|trans }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-2"></div>
+            </div>
+        </div>
     </div>
 {% endblock %}

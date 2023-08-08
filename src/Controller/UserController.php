@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Commune;
 use App\Entity\User;
 use App\Entity\UserCommuneRegistration;
 use App\Form\UserCommuneRegistrationType;
+use App\Repository\CommuneRepository;
 use App\Security\EmailVerifier;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -28,7 +30,10 @@ class UserController extends AbstractController
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
         $user = new User();
-        $form = $this->createForm(UserCommuneRegistrationType::class,new UserCommuneRegistration());
+        $communes = $entityManager->getRepository(Commune::class)->findAll();
+        $form = $this->createForm(UserCommuneRegistrationType::class,new UserCommuneRegistration(),[
+            'data'=>$communes
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

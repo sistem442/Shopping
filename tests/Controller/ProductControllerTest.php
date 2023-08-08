@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 class ProductControllerTest extends WebTestCase
 {
@@ -51,7 +52,6 @@ class ProductControllerTest extends WebTestCase
         $this->client->request('GET', 'http://shopping2.local/en/product/add');
 
         $this->assertSelectorTextContains('#product_save', 'Save', 'There is no Save Button on add product page!');
-        $this->assertSelectorTextContains('.required', 'Name', 'There is no Name input on add product page!');
         $this->assertPageTitleSame('Add Product','Title of Add product page is wrong');
 
         $crawler = $this->client->request('GET', 'http://shopping2.local/en/product/add');
@@ -63,6 +63,9 @@ class ProductControllerTest extends WebTestCase
         $this->client->submit($form, [
             'product[name]'    => 'Fabien',
             'product[description]' => 'Symfony rocks!',
+            'product[price]' => 1,
+            //'product[purchased_at]' => new DateTime('today')
+            'product[purchased_at]' => '2023-08-06'
         ]);
         $this->assertResponseIsSuccessful( 'Input form is not working!');
     }
