@@ -3,7 +3,7 @@
 {% endblock %}
 <nav class="navbar2">
     <!-- LOGO -->
-    <div class="logo"><img src="/files/logo.png" width="107px"></div>
+    <div class="logo"><img src="/files/logo.png" width="60px"></div>
     <!-- NAVIGATION MENU -->
     <ul class="nav-links">
         <!-- USING CHECKBOX HACK -->
@@ -16,27 +16,33 @@
         <!-- NAVIGATION MENUS -->
         <div class="menu">
             <li>
-                <div class="input_placeholder input_frame">
-                    <a href="/{{ app.request.locale }}/product/add">{{ 'product.add'|trans }}</a>
-                </div>
+                <a href="/{{ app.request.locale }}/product/add">
+                    <div class="input_placeholder input_frame">
+                        {{ 'product.add'|trans }}
+                    </div>
+                </a>
             </li>
             <li>
-                <div class="input_placeholder input_frame">
-                    <a href="/{{ app.request.locale }}/products/overview/{{ date("Y")|date("Y") }}-{{ date("m")|date("m") }}">
+                <a href="/{{ app.request.locale }}/products/overview/{{ date("Y")|date("Y") }}-{{ date("m")|date("m") }}">
+                    <div class="input_placeholder input_frame">
                         {{ 'product.one_commune'|trans }}
-                    </a>
-                </div>
+                    </div>
+                </a>
             </li>
             <li>
-                <div class="input_placeholder input_frame">
-                    <a href="/logout">{{ 'logout'|trans }}</a>
-                </div>
+                <a href="/logout">
+                    <div class="input_placeholder input_frame">
+                        {{ 'logout'|trans }}
+                    </div>
+                </a>
             </li>
             {% if (is_granted('ROLE_ADMIN')) %}
                 <li>
-                    <div class="input_placeholder input_frame">
-                        <a href="/{{ app.request.locale }}/commune/admin_panel">Admin Panel</a>
-                    </div>
+                    <a href="/{{ app.request.locale }}/commune/admin_panel">
+                        <div class="input_placeholder input_frame">
+                            Admin Panel
+                        </div>
+                    </a>
                 </li>
             {% endif %}
         </div>
