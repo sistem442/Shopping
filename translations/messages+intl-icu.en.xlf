@@ -28,7 +28,7 @@
              </trans-unit>
             <trans-unit id="label.register">
                 <source>label.register</source>
-                <target>register</target>
+                <target>Register</target>
             </trans-unit>
              <trans-unit id="product.name">
                  <source>product.name</source>
@@ -565,6 +565,10 @@
             <trans-unit id="you_have_successfully_created_a_new_commune">
                 <source>you_have_successfully_created_a_new_commune</source>
                 <target>You have successfully created a new commune!</target>
+            </trans-unit>
+            <trans-unit id="overview">
+                <source>overview</source>
+                <target>Overview</target>
             </trans-unit>
         </body>
     </file>

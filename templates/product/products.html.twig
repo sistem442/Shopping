@@ -4,10 +4,10 @@
 
 {% block body %}
     <script>
-        function ConfirmDelete()
-        {
+        function ConfirmDelete() {
             return confirm("Are you sure you want to delete?");
         }
+
         function searchByYearAndMonth() {
             let year = document.getElementById("year");
             let month = document.getElementById("month");
@@ -15,115 +15,157 @@
             console.log(
                 `This form has a year of ${year.value} and month of ${month.value}`
             );
-            window.location.href="/{{ app.request.locale }}/products/overview/"+year.value+"-"+month.value;
+            window.location.href = "/{{ app.request.locale }}/products/overview/" + year.value + "-" + month.value;
         }
 
     </script>
-<style>
-    table {
-        border: 1px solid;
-        padding: 10px;
-    }
+    <style>
+        table {
+            border: 1px solid;
+            padding: 10px;
+        }
 
-    th, td {
-        border: 1px solid black;
-        width: 100px;
-        overflow: hidden;
-        padding: 10px;
-    }
+        th, td {
+            border: 1px solid black;
+            width: 100px;
+            overflow: hidden;
+            padding: 10px;
+        }
 
-    .example-wrapper {
-        margin: 1em auto;
-        max-width: 800px;
-        width: 95%;
-        font: 18px/1.5 sans-serif;
-    }
+        .example-wrapper {
+            margin: 1em auto;
+            max-width: 800px;
+            width: 95%;
+            font: 18px/1.5 sans-serif;
+        }
 
-    .example-wrapper code {
-        padding: 2px 6px;
-    }
+        .example-wrapper code {
+            padding: 2px 6px;
+        }
 
-    .field {
+        .liste {
+            border-radius: 16px;
+            background: var(--beige, #ECEADE);
+            padding: 15px;
+            width: 374px;
+            height: 78px;
+            margin-bottom: 15px;
+        }
 
-    }
-</style>
-<div class="row2">
+        * {
+            box-sizing: border-box;
+        }
+
+        .box {
+            float: left;
+            width: 33.33%;
+            padding: 5px;
+        }
+
+        .clearfix {
+            padding-top: 10px;
+            color: var(--dark-green, #163F2F);
+            text-align: center;
+            font-family: Noto Sans;
+            font-size: 15px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;
+        }
+
+        .clearfix::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+    </style>
     {% include 'menu.html.twig' %}
+    <div class="container-fluid" style="width: 414px;">
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-8">
+                <div class="row">
+                    <div class="page_name">{{ 'overview'|trans }}</div>
 
-    <div class="col-9">
-        <div class="example-wrapper">
-            <form action="" id="search_form">
-                <select id="year" name="year">
-                    {% for i  in years%}
-                        <option value="{{ i.year }}"
-                                {% if (i.year == year) %}
-                                    selected
-                                {% endif %}
-                        >{{ i.year }}</option>
-                    {% endfor %}
-                </select>
-                <select id="month" name="month">
-                    {% for i in 1..12 %}
-                        <option value="{{ i }}"
-                            {% if (i == month) %}
-                                selected
-                            {% endif %}
-                        >{{ i }}</option>
-                    {% endfor %}
-                </select>
-                <a href="#" onclick="searchByYearAndMonth()">{{ 'search'|trans }}</a>
-            </form>
-            <div style="padding: 20px"></div>
-            {% if (products) %}
-                <table>
-                    <tr>
-                        <td>{{ 'product.name'|trans }}</td>
-                        <td>{{ 'product.paid'|trans }}</td>
-                    </tr>
-                    {% for user in users %}
-                        <tr class="product">
+                    <form action="" id="search_form">
+                        <select id="year" name="year">
+                            {% for i  in years %}
+                                <option value="{{ i.year }}"
+                                        {% if (i.year == year) %}
+                                            selected
+                                        {% endif %}
+                                >{{ i.year }}</option>
+                            {% endfor %}
+                        </select>
+                        <select id="month" name="month">
+                            {% for i in 1..12 %}
+                                <option value="{{ i }}"
+                                        {% if (i == month) %}
+                                            selected
+                                        {% endif %}
+                                >{{ i }}</option>
+                            {% endfor %}
+                        </select>
+                        <a href="#" onclick="searchByYearAndMonth()">{{ 'search'|trans }}</a>
+                    </form>
+
+                    {% if (products) %}
+
+                        {% for user in users %}
                             {% if user[0]["name"] %}
-                                <td>
-                                    {{ user[0]["name"] }}
-                                </td>
-                                <td>
-                                    {{ user[0]["paid"]/100 }} EUR
-                                </td>
+                                <div class="liste">
+                                    <div class="clearfix">
+                                        <div class="box">
+                                            {{ user[0]["name"] }}
+                                        </div>
+                                        <div class="box">
+
+                                        </div>
+                                        <div class="box">
+                                            {{ user[0]["paid"]/100 }} EUR
+                                        </div>
+                                    </div>
+                                    {# <div style="float: left; width: 25%; display: inline">{{ user[0]["name"] }}</div>
+                                        <div style="float: left; width: 50%; display: inline"></div>
+                                        <div style="float: left; width: 25%; display: inline"> {{ user[0]["paid"]/100 }} EUR</div> #}
+
+                                </div>
                             {% endif %}
-                        </tr>
-                    {% endfor %}
-                </table>
-                <div style="padding: 20px"></div>
-                <table>
-                    <tr>
-                        <td> {{ 'product.name'|trans }} </td>
-                        <td> {{ 'product.description'|trans }} </td>
-                        <td> {{ 'product.price'|trans }} </td>
-                        <td> {{ 'product.user'|trans }} </td>
-                        <td> {{ 'date'|trans }} </td>
-                    </tr>
-                    {% for product in products %}
-                        <tr class="product">
-                            <td class="field"> {{ product.name }} </td>
-                            <td class="field"> {{ product.description }} </td>
-                            <td class="field"> {{ product.price/100 }} EUR </td>
-                            <td class="field"> {{ product.user.name }} </td>
-                            <td class="field"> {{ product.getPurchasedAt()|date("Y-m-d")}} </td>
-                            {% if product.user.id == user_id%}
-                                <td class="field">
-                                    <a href="{{ path('product_edit', {id: product.id}) }}">edit</a>
-                                </td>
-                                <td class="field">
-                                    <a href="{{ path('product_delete', {id: product.id}) }}" onclick="ConfirmDelete()">delete</a>
-                            </td>
-                            {% endif %}
-                        </tr>
-                    {% endfor %}
-                </table>
-            {% else %}
-                <div style="padding: 100px">{{ 'no_products'|trans }}</div>
-            {% endif %}
+                        {% endfor %}
+                        <div style="padding: 20px"></div>
+                        <table>
+                            <tr>
+                                <td> {{ 'product.name'|trans }} </td>
+                                <td> {{ 'product.description'|trans }} </td>
+                                <td> {{ 'product.price'|trans }} </td>
+                                <td> {{ 'product.user'|trans }} </td>
+                                <td> {{ 'date'|trans }} </td>
+                            </tr>
+                            {% for product in products %}
+                                <tr class="product">
+                                    <td class="field"> {{ product.name }} </td>
+                                    <td class="field"> {{ product.description }} </td>
+                                    <td class="field"> {{ product.price/100 }} EUR</td>
+                                    <td class="field"> {{ product.user.name }} </td>
+                                    <td class="field"> {{ product.getPurchasedAt()|date("Y-m-d") }} </td>
+                                    {% if product.user.id == user_id %}
+                                        <td class="field">
+                                            <a href="{{ path('product_edit', {id: product.id}) }}">edit</a>
+                                        </td>
+                                        <td class="field">
+                                            <a href="{{ path('product_delete', {id: product.id}) }}"
+                                               onclick="ConfirmDelete()">delete</a>
+                                        </td>
+                                    {% endif %}
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    {% else %}
+                        <div style="padding: 100px">{{ 'no_products'|trans }}</div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-2"></div>
         </div>
     </div>
-</div>
 {% endblock %}
