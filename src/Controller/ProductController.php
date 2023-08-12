@@ -82,7 +82,8 @@ class ProductController extends AbstractController
                 'message' => 'edited'
                 ]);
         }
-
+        /*dump($form);
+        die();*/
         return $this->render('product/new.html.twig', [
             'form' => $form,
         ]);

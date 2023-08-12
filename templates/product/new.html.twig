@@ -2,10 +2,11 @@
 {% block title %}{{ 'add_product'|trans }}{% endblock %}
 {% block body %}
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             // you may need to change this code if you are not using Bootstrap Datepicker
             $('#product_purchased_at').datepicker({
                 format: 'yyyy-mm-dd'
@@ -20,13 +21,13 @@
                 <div class="row">
                     <div class="page_name">{{ 'add_product'|trans }}</div>
                     {% block main %}
-                            {{ form_start(form) }}
-                                {{ form_row(form.name) }}
-                                {{ form_row(form.description) }}
-                                {{ form_row(form.price) }}
-                                {{ form_row(form.purchased_at) }}
-                                {{ form_row(form.save) }}
-                            {{ form_end(form) }}
+                        {{ form_start(form) }}
+                        {{ form_row(form.name) }}
+                        {{ form_row(form.description) }}
+                        {{ form_row(form.price) }}
+                        {{ form_row(form.purchased_at) }}
+                        {{ form_row(form.save) }}
+                        {{ form_end(form) }}
                     {% endblock %}
                 </div>
             </div>

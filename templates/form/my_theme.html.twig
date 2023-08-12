@@ -1,14 +1,14 @@
 {% block text_widget %}
     <div class="input_placeholder" style="width: 244px; background-color: white;">
         <div class="input_frame" style="width: 244px; background-color: white;">
-            <input type="text" class="input_field" id="{{ id }}" name="{{ full_name }}" placeholder="{{ name }}"/>
+            <input type="text" class="input_field" id="{{ id }}" name="{{ full_name }}" placeholder="{{ name }}" value="{{ value }}"/>
         </div>
     </div>
 {% endblock %}
 {% block money_widget %}
     <div class="input_placeholder" style="width: 244px; background-color: white;">
         <div class="input_frame" style="width: 244px; background-color: white;">
-            <input type="text" class="input_field" id="{{ id }}" name="{{ full_name }}" placeholder="{{ name }}"/>
+            <input type="text" class="input_field" id="{{ id }}" name="{{ full_name }}" placeholder="{{ name }}" value="{{ value }}"/>
         </div>
     </div>
 {% endblock %}
@@ -16,7 +16,7 @@
     <div class="input_placeholder" style="width: 244px; background-color: white;">
         <div class="input_frame" style="width: 244px; background-color: white;">
             <input data-provide="datepicker" id="{{ id }}" name="{{ full_name }}" class="input_field"
-                   style="width: 250px" placeholder="date">
+                   style="width: 250px" placeholder="date" value="{{ value }}">
             <div style="float: right"><img src="/files/icon _calendar.png" alt="language icon"></div>
         </div>
 
