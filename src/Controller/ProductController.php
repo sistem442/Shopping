@@ -66,24 +66,23 @@ class ProductController extends AbstractController
         $product = $entityManager->getRepository(Product::class)->find($id);
 
         if (!$product) {
-            throw $this->createNotFoundException(
-                'No product found for id '.$id
-            );
+            return $this->render('product/success.html.twig', [
+                'message' => 'not found'
+            ]);
         }
 
         $form = $this->createForm(ProductType::class, $product, ['action' => $request->getRequestUri()]);
         $form->handleRequest($request);
     
         if ($form->isSubmitted() && $form->isValid()) {
-                $entityManager->persist($product);
+            $entityManager->persist($product);
             $entityManager->flush();
 
             return $this->render('product/success.html.twig', [
                 'message' => 'edited'
                 ]);
         }
-        /*dump($form);
-        die();*/
+
         return $this->render('product/new.html.twig', [
             'form' => $form,
         ]);

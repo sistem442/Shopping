@@ -570,6 +570,10 @@
                 <source>overview</source>
                 <target>Overview</target>
             </trans-unit>
+            <trans-unit id="product.not_found_message">
+                <source>product.not_found_message</source>
+                <target>The product for the requested ID was not found.</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

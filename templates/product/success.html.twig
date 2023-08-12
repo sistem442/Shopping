@@ -1,23 +1,23 @@
 {% extends 'base.html.twig' %}
 {% block title %}{{ 'product.success'|trans }}{% endblock %}
 {% block body %}
-    <div class="row2">
-        {% include 'menu.html.twig' %}
+    {% include 'menu.html.twig' %}
+    {% block main %}
+        <div class="container-fluid" style="width: 414px;">
+            <div class="row">
+                <div style="height: 100px"></div>
+                {% if message == 'added' %}
+                    {{ 'product.success_message'|trans }}
+                {% elseif message == 'deleted' %}
+                    {{ 'product.deleted_message'|trans }}
+                {% elseif message == 'edited' %}
+                    {{ 'product.edited_message'|trans }}
+                {% elseif message == 'not found' %}
+                    {{ 'product.not_found_message'|trans }}
+                {% else %}
 
-        <div class="col-9">
-            {% block main %}
-                <div style="margin: auto;width: 50% ">
-                    {% if message == 'added' %}
-                        {{ 'product.success_message'|trans }}
-                    {% elseif message == 'deleted' %}
-                        {{ 'product.deleted_message'|trans }}
-                    {% elseif message == 'edited' %}
-                        {{ 'product.edited_message'|trans }}
-                    {% else %}
-
-                    {% endif %}
-                </div>
-            {% endblock %}
+                {% endif %}
+            </div>
         </div>
-    </div>
+    {% endblock %}
 {% endblock %}

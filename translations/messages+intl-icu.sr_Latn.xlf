@@ -2,6 +2,10 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file source-language="en" target-language="sr-Latn" datatype="plaintext" original="file.ext">
         <body>
+            <trans-unit id="product.not_found_message">
+                <source>product.not_found_message</source>
+                <target>Proizvod za traženi ID nije pronađen.</target>
+            </trans-unit>
             <trans-unit id="overview">
                 <source>overview</source>
                 <target>Pregled</target>
