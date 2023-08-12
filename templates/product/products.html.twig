@@ -82,90 +82,103 @@
     {% include 'menu.html.twig' %}
     <div class="container-fluid" style="width: 414px;">
         <div class="row">
-            <div class="col-2"></div>
-            <div class="col-8">
-                <div class="row">
-                    <div class="page_name">{{ 'overview'|trans }}</div>
-
-                    <form action="" id="search_form">
-                        <select id="year" name="year">
-                            {% for i  in years %}
-                                <option value="{{ i.year }}"
-                                        {% if (i.year == year) %}
-                                            selected
-                                        {% endif %}
-                                >{{ i.year }}</option>
-                            {% endfor %}
-                        </select>
-                        <select id="month" name="month">
-                            {% for i in 1..12 %}
-                                <option value="{{ i }}"
-                                        {% if (i == month) %}
-                                            selected
-                                        {% endif %}
-                                >{{ i }}</option>
-                            {% endfor %}
-                        </select>
+            <div class="page_name" style="padding-left: 0">{{ 'overview'|trans }}</div>
+            <div style="text-align: center; padding: 20px 0 20px 0 ;">
+                <form action="" id="search_form">
+                    <div class="input_placeholder"
+                         style="width: 110px; background-color: white; padding: 5px; margin-right: 20px">
+                        <div class="input_frame" style="width: 110px; background-color: white;">
+                            <select id="year" name="year" class="input_field" style=" background-color: white;">
+                                {% for i in years %}
+                                    <option value="{{ i.year }}"
+                                            {% if (i.year == year) %}
+                                                selected
+                                            {% endif %}
+                                    >{{ i.year }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input_placeholder"
+                         style="width: 90px; background-color: white; padding: 5px; margin-right: 20px">
+                        <div class="input_frame" style="width: 90px; background-color: white;">
+                            <select id="month" name="month" class="input_field" style=" background-color: white;">
+                                {% for i in 1..12 %}
+                                    <option value="{{ i }}"
+                                            {% if (i == month) %}
+                                                selected
+                                            {% endif %}
+                                    >{{ i }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div style="
+                             padding: 19px;
+                             background-color: #8b949e;
+                             width: 150px;
+                             border-radius: 20px;
+                             display: inline;
+                             margin-right: 50px
+                         ">
                         <a href="#" onclick="searchByYearAndMonth()">{{ 'search'|trans }}</a>
-                    </form>
+                    </div>
+                </form>
+            </div>
 
-                    {% if (products) %}
+            {% if (products) %}
+            {% for user in users %}
+                {% if user[0]["name"] %}
+                    <div class="liste">
+                        <div class="clearfix">
+                            <div class="box">{{ user[0]["name"] }}</div>
+                            <div class="box"></div>
+                            <div class="box">{{ user[0]["paid"]/100 }} EUR</div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+            <div style="padding: 20px"></div>
 
-                        {% for user in users %}
-                            {% if user[0]["name"] %}
-                                <div class="liste">
-                                    <div class="clearfix">
-                                        <div class="box">
-                                            {{ user[0]["name"] }}
-                                        </div>
-                                        <div class="box">
+            {% for product in products %}
+                <div class="liste" style="height: 100px">
+                    <div class="row">
+                        <div style="">{{ product.name }}</div>
+                    </div>
+                    <div style="" class="row">
+                        <div style="" class="col-4">
 
-                                        </div>
-                                        <div class="box">
-                                            {{ user[0]["paid"]/100 }} EUR
-                                        </div>
+                            <div style="">{{ product.description }} </div>
+                        </div>
+                        <div style="" class="col-4">
+                            <div style="">{{ product.price/100 }} EUR</div>
+                            <div style="">{{ product.user.name }} </div>
+                        </div>
+                        <div style="" class="col-4">
+                            <div>{{ product.getPurchasedAt()|date("Y-m-d") }}</div>
+                            {% if product.user.id == user_id %}
+                                <div class="row">
+                                    <div class="col-6">
+                                        <a href="{{ path('product_edit', {id: product.id}) }}">
+                                            <img src="/files/pen.svg" width="16" height="16">
+                                        </a>
                                     </div>
-                                    {# <div style="float: left; width: 25%; display: inline">{{ user[0]["name"] }}</div>
-                                        <div style="float: left; width: 50%; display: inline"></div>
-                                        <div style="float: left; width: 25%; display: inline"> {{ user[0]["paid"]/100 }} EUR</div> #}
-
+                                    <div class="col-6">
+                                        <a href="{{ path('product_delete', {id: product.id}) }}"
+                                           onclick="ConfirmDelete()">
+                                            <img src="/files/trash3.svg" width="16" height="16">
+                                        </a>
+                                    </div>
                                 </div>
                             {% endif %}
-                        {% endfor %}
-                        <div style="padding: 20px"></div>
-                        <table>
-                            <tr>
-                                <td> {{ 'product.name'|trans }} </td>
-                                <td> {{ 'product.description'|trans }} </td>
-                                <td> {{ 'product.price'|trans }} </td>
-                                <td> {{ 'product.user'|trans }} </td>
-                                <td> {{ 'date'|trans }} </td>
-                            </tr>
-                            {% for product in products %}
-                                <tr class="product">
-                                    <td class="field"> {{ product.name }} </td>
-                                    <td class="field"> {{ product.description }} </td>
-                                    <td class="field"> {{ product.price/100 }} EUR</td>
-                                    <td class="field"> {{ product.user.name }} </td>
-                                    <td class="field"> {{ product.getPurchasedAt()|date("Y-m-d") }} </td>
-                                    {% if product.user.id == user_id %}
-                                        <td class="field">
-                                            <a href="{{ path('product_edit', {id: product.id}) }}">edit</a>
-                                        </td>
-                                        <td class="field">
-                                            <a href="{{ path('product_delete', {id: product.id}) }}"
-                                               onclick="ConfirmDelete()">delete</a>
-                                        </td>
-                                    {% endif %}
-                                </tr>
-                            {% endfor %}
-                        </table>
-                    {% else %}
-                        <div style="padding: 100px">{{ 'no_products'|trans }}</div>
-                    {% endif %}
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="col-2"></div>
+            {% endfor %}
         </div>
+        {% else %}
+            <div style="padding: 100px">{{ 'no_products'|trans }}</div>
+        {% endif %}
+
     </div>
 {% endblock %}
