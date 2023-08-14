@@ -19,3 +19,38 @@ input:-webkit-autofill:active{
 *{
     font-family: Noto Sans, serif;
 }
+.liste {
+    border-radius: 16px;
+    background: var(--beige, #ECEADE);
+    padding: 15px;
+    width: 374px;
+    height: 78px;
+    margin-bottom: 15px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.box {
+    float: left;
+    width: 33.33%;
+    padding: 5px;
+}
+
+.clearfix {
+    padding-top: 10px;
+    color: var(--dark-green, #163F2F);
+    text-align: center;
+    font-family: Noto Sans, serif;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}

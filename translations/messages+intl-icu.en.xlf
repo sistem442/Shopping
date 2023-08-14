@@ -574,6 +574,10 @@
                 <source>product.not_found_message</source>
                 <target>The product for the requested ID was not found.</target>
             </trans-unit>
+            <trans-unit id="edit_product">
+                <source>edit_product</source>
+                <target>Editing of product</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

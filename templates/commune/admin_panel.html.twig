@@ -1,107 +1,90 @@
 {% extends 'base.html.twig' %}
 {% block title %}{{ 'admin_panel'|trans }}{% endblock %}
 {% block body %}
-    <style>
-        table {
-            border: 1px solid;
-            padding: 10px;
-        }
-
-        th, td {
-            border: 1px solid black;
-            width: 100px;
-            overflow: hidden;
-            padding: 10px;
-        }
-
-        .example-wrapper {
-            margin: 1em auto;
-            max-width: 800px;
-            width: 95%;
-            font: 18px/1.5 sans-serif;
-        }
-
-        .example-wrapper code {
-            padding: 2px 6px;
-        }
-
-        .field {
-
-        }
-    </style>
-    <div class="row2">
-        {% include 'menu.html.twig' %}
-        <div class="col-9">
-            {% block main %}
-                <table>
-                    <tr>
-                        <td> {{ 'name'|trans }} </td>
-                        <td> {{ 'email'|trans }} </td>
-                        <td> {{ 'role'|trans }} </td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr class="produkt"><td class="field" colspan="5"> {{ 'active_members'|trans }}</td></tr>
-                    {% for roommate in active_roommates %}
-                        <tr class="product">
-                            <td class="field"> {{ roommate.name }} </td>
-                            <td class="field"> {{ roommate.email }} </td>
-                            <td class="field" id="{{ roommate.id }}">
-                                {% for role in roommate.roles %}
-                                    {%if(role == 'ROLE_ADMIN')%}
-                                        Admin
-                                    {% elseif(role == "ROLE_USER" and 'ROLE_ADMIN' not in roommate.roles ) %}
-                                        User
-                                    {%endif%}
-                                {% endfor %}
-                            </td>
-                            <td class="field"><button type="button" onclick="toggleAdmin({{roommate.id }})">toggle admin</button></td>
-                            <td class="field"><a href="{{ path('user_deactivate', {id: roommate.id}) }}" >deactivate</a></td>
-                        </tr>
-                    {% endfor %}
-                    {% if (inactive_roommates)%}
-                        <tr class="produkt"><td colspan="5" class="field"> {{ 'inactive_members'|trans }}</td></tr>
-                            {% for roommate in inactive_roommates %}
-                                <tr class="product">
-                                    <td class="field"> {{ roommate.name }} </td>
-                                    <td class="field"> {{ roommate.email }} </td>
-                                    <td class="field" id="{{ roommate.id }}">
-                                        {% for role in roommate.roles %}
-                                            {%if(role == 'ROLE_ADMIN')%}
-                                                Admin
-                                            {% elseif(role == "ROLE_USER" and 'ROLE_ADMIN' not in roommate.roles ) %}
-                                                User
-                                            {%endif%}
-                                        {% endfor %}
-                                    </td>
-                                    <td class="field"><button type="button" onclick="toggleAdmin({{roommate.id }})">toggle admin</button></td>
-                                    <td class="field"><a href="{{ path('user_activate', {id: roommate.id}) }}" >activate</a></td>
-                                </tr>
-                            {% endfor %}
-                    {% endif %}
-                </table>
-            {% endblock %}
+    {% include 'menu.html.twig' %}
+    {% block main %}
+        <div class="container-fluid" style="width: 414px;">
+        <div class="row">
+            <div class="page_name" style="padding-left: 0">{{ 'admin_panel'|trans }}</div>
+            {% for roommate in active_roommates %}
+                <div class="row liste">
+                    <div class="col-5">
+                        <div class="row">{{ roommate.name }}</div>
+                        <div class="row">{{ roommate.email }}</div>
+                    </div>
+                    <div class="col-3" style="text-align: center" id="{{ roommate.id }}">
+                        {% for role in roommate.roles %}
+                            {% if(role == 'ROLE_ADMIN') %}
+                                Admin
+                            {% elseif(role == "ROLE_USER" and 'ROLE_ADMIN' not in roommate.roles ) %}
+                                User
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="col-4" style="text-align: center">
+                        <div class="row">
+                            <button type="button" onclick="toggleAdmin({{ roommate.id }})">toggle admin</button>
+                        </div>
+                        <div class="row">
+                            <a style="color: red"
+                               href="{{ path('user_deactivate', {id: roommate.id}) }}">deactivate</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
-    </div>
+        <div class="row" style="height: 20px"></div>
+        {% if (inactive_roommates) %}
+            <div class="row">
+                <div class="row" style="color: #1c7430"> {{ 'inactive_members'|trans }}</div>
+                {% for roommate in inactive_roommates %}
+                    <div class="row liste">
+                        <div style="" class="col-5">
+                            <div class="row">{{ roommate.name }}</div>
+                            <div class="row">{{ roommate.email }}</div>
+                        </div>
+                        <div class="col-3" style="text-align: center" id="{{ roommate.id }}">
+                            {% for role in roommate.roles %}
+                                {% if(role == 'ROLE_ADMIN') %}
+                                    Admin
+                                {% elseif(role == "ROLE_USER" and 'ROLE_ADMIN' not in roommate.roles ) %}
+                                    User
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div class="col-4">
+                            <div class="row">
+                                <button type="button" onclick="toggleAdmin({{ roommate.id }})">toggle admin</button>
+                            </div>
+                            <div class="row" style="text-align: center">
+                                <a style="color: #1c7430"
+                                   href="{{ path('user_activate', {id: roommate.id}) }}">activate</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
 
-<script>
-    function toggleAdmin(id) {
-        const xhttp = new XMLHttpRequest();
-        var response;
-        xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                response = String(this.responseText);
-                if( response === '"last admin"') {
-                    alert("There must be at least one admin in community!");
+
+    {% endblock %}
+    <script>
+        function toggleAdmin(id) {
+            const xhttp = new XMLHttpRequest();
+            var response;
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    response = String(this.responseText);
+                    if (response === '"last admin"') {
+                        alert("There must be at least one admin in community!");
+                    } else {
+                        document.getElementById(id).innerHTML =
+                            response.substring(1, response.length - 1);
+                    }
                 }
-                else{
-                    document.getElementById(id).innerHTML =
-                       response.substring(1, response.length-1);
-                }
-            }
-        };
-        xhttp.open("GET", "/en/commune/toggle_admin/"+id);
-        xhttp.send();
-    }
-</script>
+            };
+            xhttp.open("GET", "/en/commune/toggle_admin/" + id);
+            xhttp.send();
+        }
+    </script>
 {% endblock %}

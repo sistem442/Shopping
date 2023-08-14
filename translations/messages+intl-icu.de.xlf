@@ -2,6 +2,10 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file source-language="en" target-language="de" datatype="plaintext" original="file.ext">
         <body>
+            <trans-unit id="edit_product">
+                <source>edit_product</source>
+                <target>Bearbeitung des Produkts</target>
+            </trans-unit>
             <trans-unit id="product.not_found_message">
                 <source>product.not_found_message</source>
                 <target>Das Produkt für die angeforderte ID wurde nicht gefunden.</target>
@@ -565,6 +569,10 @@
             <trans-unit id="paginator.current">
                 <source>paginator.current</source>
                 <target>(aktuell)</target>
+            </trans-unit>
+            <trans-unit id="admin_panel">
+                <source>admin_panel</source>
+                <target>Admin Panel</target>
             </trans-unit>
         </body>
     </file>
